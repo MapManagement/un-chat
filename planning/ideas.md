@@ -17,7 +17,7 @@ chapters.
 - encryption for sent messages
 ## ⚙️ Technologies / Frameworks / Languages
 - [Python](https://www.python.org/)
-- [gRPC](ttps://grpc.io/)
+- [gRPC](https://grpc.io/)
 
 # Client Side
 ## ❗ Necessary
