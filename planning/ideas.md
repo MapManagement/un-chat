@@ -7,25 +7,30 @@ to send messages back. Especially the technical parts of the project are describ
 chapters.
 
 # Server Side
-## Necessary
-- probably written in Python
+## ❗ Necessary
 - handling all incoming requests
 - forwarding all messages to the targeted user
 - handling multiple chats (not only two users will try to communicate)
 - server to run the program on
 - saving user profiles
-## Possible
+## ❓ Possible
 - encryption for sent messages
+## ⚙️ Technologies / Frameworks / Languages
+- [Python](https://www.python.org/)
+- [gRPC](ttps://grpc.io/)
 
 # Client Side
-## Necessary
-- probably written in C#
-- creating a GUI for desktops (WPF framework)
+## ❗ Necessary
+- creating a GUI for desktops
 - opening different chats and adding other users
 - sending messages to other users
 - receiving message from other users
 - creating a profile
-## Possible
+## ❓ Possible
 - also sending other file formats e.g. pictures or videos
-- mobile support with Blazor/Xamrain
+- mobile support
 - reporting users
+## ⚙️ Technologies / Frameworks / Languages
+- [C#](https://docs.microsoft.com/en-us/dotnet/csharp/)
+- [WPF](https://docs.microsoft.com/en-us/dotnet/desktop/wpf/?view=netdesktop-5.0) for desktop application
+- [Blazor](https://dotnet.microsoft.com/apps/aspnet/web-apps/blazor) or [Xamarin](https://dotnet.microsoft.com/apps/xamarin) for mobile application
