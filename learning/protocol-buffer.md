@@ -42,3 +42,13 @@ message Movie {
 All available "Scalar Value Types" can be found [here](https://developers.google.com/protocol-buffers/docs/proto3#scalar).
 
 ## Services
+## Compiler / Dependencies
+Since gRPC is only working with ``.proto`` files, you need to install a specific compiler.
+That is why I link you the [Protocol Buffer Compiler Installation](https://grpc.io/docs/protoc-installation/) from the
+official documentation. Everything important is explained extensively.
+Also, you should not forget to install the proper libraries. Since I will use Python, I need to install following ones:
+```
+pip install grpcio
+pip install grpcio-tools
+```
+
