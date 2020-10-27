@@ -7,7 +7,7 @@ proto2/proto3 ([docs](https://developers.google.com/protocol-buffers/docs/proto)
 ## Messages
 When requesting data from a server you normally specify the request with a **message type**.
 A message type can include multiple **fields** which contain the **name** and the **data type**.
-Defining a so called **unique number** for each field are for identification purposes.
+Defining a so called **unique number** for each field is for identification purposes.
 ```
 message ExampleRequest {
     string userName = 1;
@@ -16,9 +16,9 @@ message ExampleRequest {
 }
 ```
 There are also **field rules**:
-- **required** means, that a message need one and not more of this filed
+- **required** means, that a message needs one and not more of it
 - **repeated** means, that this field can be repeated as often as necessary
-- **optional** means, that a message can have either one or none of this field
+- **optional** means, that a message can either have one or none of this field
 ```
 message ExampleRequest {
     required string userName = 1;
@@ -26,7 +26,7 @@ message ExampleRequest {
     optional int32 age = 3;
 }
 ```
-Of course, you can define multiple message within one .proto file.
+Of course, you can define multiple messages within one .proto file.
 ```
 message Book {
     required string title = 1;
