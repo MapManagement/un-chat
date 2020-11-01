@@ -1,0 +1,27 @@
+syntax="proto3";
+
+option csharp_namespace = "UnChatClient";
+
+package grpc;
+
+service ChatMessages {
+    rpc GetNewMessages(User) returns (ChatMessage);
+    rpc SendNewMessages(ChatMessage) returns (RequestSuccess);
+}
+
+message User {
+    string userID = 1;
+    string userName = 2;
+}
+
+message ChatMessage {
+    string senderID = 1;
+    string recipientID = 2;
+    string messageText = 3;
+}
+
+message RequestSuccess {
+    bool receivedRequest = 1;
+}
+
+message Empty { }
