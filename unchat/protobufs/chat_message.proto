@@ -1,6 +1,5 @@
 syntax="proto3";
 
-option csharp_namespace = "UnChatClient";
 
 package grpc;
 
