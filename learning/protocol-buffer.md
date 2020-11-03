@@ -73,4 +73,13 @@ Also, you should not forget to install the proper libraries. Since I will use Py
 pip install grpcio
 pip install grpcio-tools
 ```
+When the ``.proto`` files is already finished and you want to generate the code in the specified language, run
+following command:
+```
+python -m grpc_tools.protoc -I paht_to_directory --python_out=. --grpc_python_out=. path_to_directory\your_proto_file.proto
+```
+For me, it looks like this:
+```
+python -m grpc_tools.protoc -I protobufs --python_out=. --grpc_python_out=. protobufs\chat_message.proto
+```
 
