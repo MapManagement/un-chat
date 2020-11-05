@@ -14,8 +14,13 @@ class ChatMessagesStub(object):
         Args:
             channel: A grpc.Channel.
         """
+<<<<<<< HEAD
         self.GetNewMessages = channel.unary_unary(
                 '/grpc.ChatMessages/GetNewMessages',
+=======
+        self.ChatStream = channel.unary_stream(
+                '/grpc.ChatMessages/ChatStream',
+>>>>>>> 5c56dbb (updated protobuf and generated code)
                 request_serializer=chat__message__pb2.User.SerializeToString,
                 response_deserializer=chat__message__pb2.ChatMessage.FromString,
                 )
@@ -29,7 +34,11 @@ class ChatMessagesStub(object):
 class ChatMessagesServicer(object):
     """Missing associated documentation comment in .proto file."""
 
+<<<<<<< HEAD
     def GetNewMessages(self, request, context):
+=======
+    def ChatStream(self, request, context):
+>>>>>>> 5c56dbb (updated protobuf and generated code)
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -44,8 +53,13 @@ class ChatMessagesServicer(object):
 
 def add_ChatMessagesServicer_to_server(servicer, server):
     rpc_method_handlers = {
+<<<<<<< HEAD
             'GetNewMessages': grpc.unary_unary_rpc_method_handler(
                     servicer.GetNewMessages,
+=======
+            'ChatStream': grpc.unary_stream_rpc_method_handler(
+                    servicer.ChatStream,
+>>>>>>> 5c56dbb (updated protobuf and generated code)
                     request_deserializer=chat__message__pb2.User.FromString,
                     response_serializer=chat__message__pb2.ChatMessage.SerializeToString,
             ),
@@ -65,7 +79,11 @@ class ChatMessages(object):
     """Missing associated documentation comment in .proto file."""
 
     @staticmethod
+<<<<<<< HEAD
     def GetNewMessages(request,
+=======
+    def ChatStream(request,
+>>>>>>> 5c56dbb (updated protobuf and generated code)
             target,
             options=(),
             channel_credentials=None,
@@ -75,7 +93,11 @@ class ChatMessages(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
+<<<<<<< HEAD
         return grpc.experimental.unary_unary(request, target, '/grpc.ChatMessages/GetNewMessages',
+=======
+        return grpc.experimental.unary_stream(request, target, '/grpc.ChatMessages/ChatStream',
+>>>>>>> 5c56dbb (updated protobuf and generated code)
             chat__message__pb2.User.SerializeToString,
             chat__message__pb2.ChatMessage.FromString,
             options, channel_credentials,

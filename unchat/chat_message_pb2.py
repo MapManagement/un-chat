@@ -19,7 +19,11 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
+<<<<<<< HEAD
   serialized_pb=b'\n\x12\x63hat_message.proto\x12\x04grpc\"(\n\x04User\x12\x0e\n\x06userID\x18\x01 \x01(\t\x12\x10\n\x08userName\x18\x02 \x01(\t\"I\n\x0b\x43hatMessage\x12\x10\n\x08senderID\x18\x01 \x01(\t\x12\x13\n\x0brecipientID\x18\x02 \x01(\t\x12\x13\n\x0bmessageText\x18\x03 \x01(\t\")\n\x0eRequestSuccess\x12\x17\n\x0freceivedRequest\x18\x01 \x01(\x08\"\x07\n\x05\x45mpty2{\n\x0c\x43hatMessages\x12/\n\x0eGetNewMessages\x12\n.grpc.User\x1a\x11.grpc.ChatMessage\x12:\n\x0fSendNewMessages\x12\x11.grpc.ChatMessage\x1a\x14.grpc.RequestSuccessb\x06proto3'
+=======
+  serialized_pb=b'\n\x12\x63hat_message.proto\x12\x04grpc\"(\n\x04User\x12\x0e\n\x06userID\x18\x01 \x01(\t\x12\x10\n\x08userName\x18\x02 \x01(\t\"I\n\x0b\x43hatMessage\x12\x10\n\x08senderID\x18\x01 \x01(\t\x12\x13\n\x0brecipientID\x18\x02 \x01(\t\x12\x13\n\x0bmessageText\x18\x03 \x01(\t\")\n\x0eRequestSuccess\x12\x17\n\x0freceivedRequest\x18\x01 \x01(\x08\"\x07\n\x05\x45mpty2u\n\x0c\x43hatMessages\x12-\n\nChatStream\x12\n.grpc.User\x1a\x11.grpc.ChatMessage0\x01\x12\x36\n\x0bSendMessage\x12\x11.grpc.ChatMessage\x1a\x14.grpc.RequestSuccessb\x06proto3'
+>>>>>>> 5c56dbb (updated protobuf and generated code)
 )
 
 
@@ -213,8 +217,13 @@ _CHATMESSAGES = _descriptor.ServiceDescriptor(
   serialized_end=320,
   methods=[
   _descriptor.MethodDescriptor(
+<<<<<<< HEAD
     name='GetNewMessages',
     full_name='grpc.ChatMessages.GetNewMessages',
+=======
+    name='ChatStream',
+    full_name='grpc.ChatMessages.ChatStream',
+>>>>>>> 5c56dbb (updated protobuf and generated code)
     index=0,
     containing_service=None,
     input_type=_USER,
