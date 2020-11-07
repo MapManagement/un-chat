@@ -30,7 +30,7 @@ if __name__ == "__main__":
     port = 12345  # is not chosen yet
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=8))
     rpc.add_ChatMessagesServicer_to_server(ChatServer(), server)
-    server.add_insecure_port(f'[::]{port}')
+    server.add_insecure_port(f'[::]:{port}')
     server.start()
     while True:
         time.sleep(64 * 64 * 100)
