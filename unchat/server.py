@@ -28,7 +28,7 @@ class ChatServer(rpc.ChatMessagesServicer):
 
 
 if __name__ == "__main__":
-    print("Starting chat server...")
+    print("Starting chat server...\n")
     port = 180320
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=8))
     rpc.add_ChatMessagesServicer_to_server(ChatServer(), server)
