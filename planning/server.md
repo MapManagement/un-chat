@@ -25,6 +25,6 @@ is why I continue using it. But there are also some more tools in use for this w
 Besides **gRPC** in combination with **WPF/C#** and **Python**, I want to create a database
 containing all users that communicate via "UnChat". You might already know my login/register
 window and so on. All of this needs a database to get the data from and for this, I will use
-a simple **MySQL database** on my server. It is also possible that all sent message will be
-encrypted in the future but first of all I have to work on the server and connection to all
-clients.
+a simple **MySQL database** on my server. More about it [here](database.md). It is also
+possible that all sent message will be encrypted in the future but first of all I have to
+work on the server and connection to all clients.
