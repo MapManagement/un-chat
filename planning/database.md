@@ -17,6 +17,7 @@ Following table shows the database structure:
 | Status                  | VARCHAR(20)  | No          | No       | Yes      |
 | Biography               | VARCHAR(128) | No          | No       | No       |
 | PathProfilePicture      | VARCHAR(256) | No          | Yes      | Yes      |
+
 *Default means following values:  
 - CreatedAt: Datetime when clicking on submit button
 - Status: Something like "Using UnChat"
