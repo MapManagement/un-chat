@@ -13,6 +13,7 @@ class ChatServer(rpc.ChatMessagesServicer):
         self.chats = []
 
     def SendMessage(self, request, context):
+        print(f"Incoming Message {request} \n")
         self.chats.append(request)
         return chat.RequestSuccess()
 
@@ -22,15 +23,16 @@ class ChatServer(rpc.ChatMessagesServicer):
             while len(self.chats) > last_index:
                 message = self.chats[last_index]
                 last_index += 1
+                print(message)
                 yield message
 
 
 if __name__ == "__main__":
     print("Starting chat server...")
-    port = 12345  # is not chosen yet
+    port = 180320
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=8))
     rpc.add_ChatMessagesServicer_to_server(ChatServer(), server)
     server.add_insecure_port(f'[::]:{port}')
     server.start()
     while True:
-        time.sleep(64 * 64 * 100)
+        time.sleep(18 * 3 * 2002)
