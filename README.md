@@ -6,7 +6,7 @@ document the whole path from creating this repo to working on new releases for t
 new learned stuff can be found in the [learning directory](/learning).
 
 ## Planning
-All plans, features and ideas that probably will be part of "Un Chat" can be found here.
+All plans, features and ideas that probably will be part of "Un Chat" can be found [here](/planning).
 Additionally a regularly updated overview of all tasks and upcoming ideas to keep the project
-well organized.
+well organized can be found within this directory.
 
