@@ -1,6 +1,5 @@
 from concurrent import futures
 
-import time
 import grpc
 
 import unchat.chat_message_pb2_grpc as rpc
@@ -11,12 +10,11 @@ class ChatServer(rpc.ChatMessagesServicer):
 
     def __init__(self):
         self.chats = []
-        self.clients = []
 
     def SendMessage(self, request, context):
         print(f"Incoming Message {request} \n")
+        print(context.peer_identity_key())
         self.chats.append(request)
-        self.clients.append(str(request.senderID))
         return chat.RequestSuccess()
 
     def ChatStream(self, request, context):
@@ -25,8 +23,10 @@ class ChatServer(rpc.ChatMessagesServicer):
             while len(self.chats) > last_index:
                 message = self.chats[last_index]
                 last_index += 1
+                print(type(message))
                 print(message)
-                yield message
+                if message.recipientID == request.userID:
+                    yield message
 
 
 if __name__ == "__main__":
