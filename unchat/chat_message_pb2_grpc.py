@@ -14,9 +14,9 @@ class ChatMessagesStub(object):
         Args:
             channel: A grpc.Channel.
         """
-        self.ChatStream = channel.stream_stream(
+        self.ChatStream = channel.unary_stream(
                 '/grpc.ChatMessages/ChatStream',
-                request_serializer=chat__message__pb2.ChatMessage.SerializeToString,
+                request_serializer=chat__message__pb2.User.SerializeToString,
                 response_deserializer=chat__message__pb2.ChatMessage.FromString,
                 )
         self.SendMessage = channel.unary_unary(
@@ -29,7 +29,7 @@ class ChatMessagesStub(object):
 class ChatMessagesServicer(object):
     """Missing associated documentation comment in .proto file."""
 
-    def ChatStream(self, request_iterator, context):
+    def ChatStream(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -44,9 +44,9 @@ class ChatMessagesServicer(object):
 
 def add_ChatMessagesServicer_to_server(servicer, server):
     rpc_method_handlers = {
-            'ChatStream': grpc.stream_stream_rpc_method_handler(
+            'ChatStream': grpc.unary_stream_rpc_method_handler(
                     servicer.ChatStream,
-                    request_deserializer=chat__message__pb2.ChatMessage.FromString,
+                    request_deserializer=chat__message__pb2.User.FromString,
                     response_serializer=chat__message__pb2.ChatMessage.SerializeToString,
             ),
             'SendMessage': grpc.unary_unary_rpc_method_handler(
@@ -65,7 +65,7 @@ class ChatMessages(object):
     """Missing associated documentation comment in .proto file."""
 
     @staticmethod
-    def ChatStream(request_iterator,
+    def ChatStream(request,
             target,
             options=(),
             channel_credentials=None,
@@ -75,8 +75,8 @@ class ChatMessages(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.stream_stream(request_iterator, target, '/grpc.ChatMessages/ChatStream',
-            chat__message__pb2.ChatMessage.SerializeToString,
+        return grpc.experimental.unary_stream(request, target, '/grpc.ChatMessages/ChatStream',
+            chat__message__pb2.User.SerializeToString,
             chat__message__pb2.ChatMessage.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
