@@ -6,4 +6,4 @@ Before you can start using un-chat-server, you have make sure that following thi
 - [ ] setting IPs the server is listening to
 - [ ] setting server IP the client has to listen to
 - [ ] installing Python modules ([requirements.txt](requirements.txt))
-- [ ] perhaps generating proto classes, use [this](generate-proto-code.bat) ``.bat`` file
+- [ ] perhaps generating proto classes, use [this](../generate-proto-code.bat) ``.bat`` file
