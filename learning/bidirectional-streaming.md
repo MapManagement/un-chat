@@ -57,8 +57,19 @@ method name and the deadline and. The client sends a sequence of messages. Now t
 respond with a sequence of messages. How the communication works at the end, depends on the 
 application. 
 
-## Why bidirectional?
-I am using the bidirectional stream because I constantly need to send messages to the server and
+## Why not bidirectional?
+~~I am using the bidirectional stream because I constantly need to send messages to the server and
 back. I also need the server to start a request whenever a person wants to send a message to
 another one. It makes it easier when both sides are able to send a sequence of messages since any
-could always just send a new message which has to be handled then.
+could always just send a new message which has to be handled then.~~  
+I switched back to a only server stream but this does not mean that I will go back to a bidirectional
+stream in the near future. Anyway, I made the decision to use the server stream again because I
+got to know that bidirectional never meant that I can start a request on my server and on my
+client, no. In this case, bidirectional only meant, that I can **stream in both directions**.
+For sure, there are use cases where you definitely need a bidirectional stream but I do not.
+I needed the opportunity that the server **and** the client can start a request but it seems like
+that gRPC only allows the client to initiate requests unless you build some real complex program.
+Thus, I switched back to the server streaming since I do not need a bidirectional stream at this
+point. What I have looked for was a way of sending a request, getting a response and then sending
+a new request from the server to another client. Fortunately, I found another method of doing so and
+who knows, perhaps I will use a bidirectional stream as soon as I have some new ideas.
