@@ -13,6 +13,7 @@ Following table shows the database structure:
 |:-----------------------:|:------------:|:-----------:|:--------:|:--------:|
 | UserID                  | VARCHAR(16)  | Yes         | Yes      | No       |
 | UserName                | VARCHAR(32)  | No          | Yes      | No       |
+| Password                | VARCHAR(64)  | No          | Yes      | No       |
 | CreatedAt               | DATETIME     | No          | Yes      | Yes      |
 | Status                  | VARCHAR(20)  | No          | No       | Yes      |
 | Biography               | VARCHAR(128) | No          | No       | No       |
