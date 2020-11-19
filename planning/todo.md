@@ -1,7 +1,7 @@
 # ToDo
 |                             | ToDo | Working On | Done | Tested |
 |-----------------------------|:----:|:----------:|:----:|:------:|
-| database with user profiles |   X  |            |      |        |
+| database with user profiles |      |      X     |      |        |
 | understanding gRPC          |      |            |  X   |        |
 | understanding proto files   |      |            |  X   |        |
 | handling incoming requests  |      |            |  X   |        |
