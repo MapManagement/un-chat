@@ -50,7 +50,7 @@ how does it work and what is it? After hashing your entered password a so called
 added to the resulting hash-value. A password salt is a random bit of data and increases the security
 by a lot since same passwords will not lead to same hash-values as long as each registered user has its
 own salt. Attacking methods like **dictionary attacks** or **rainbow tables** lose their effectiveness
-if you do so. More about it in the [weaknesses](##Weaknesses) chapter.
+if you do so. More about it in the [weaknesses](#Weaknesses) chapter.
 
 ## Weaknesses
 ### Brute Force

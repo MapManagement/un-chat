@@ -15,7 +15,7 @@ Following table shows the database structure:
 | UserName                | VARCHAR(32)  | No          | Yes      | No       |
 | Password                | VARCHAR(64)  | No          | Yes      | No       |
 | CreatedAt               | DATETIME     | No          | Yes      | Yes      |
-| Status                  | VARCHAR(20)  | No          | No       | Yes      |
+| Status                  | VARCHAR(32)  | No          | No       | Yes      |
 | Biography               | VARCHAR(128) | No          | No       | No       |
 | PathProfilePicture      | VARCHAR(256) | No          | Yes      | Yes      |
 
