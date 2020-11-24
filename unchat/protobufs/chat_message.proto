@@ -6,6 +6,7 @@ package grpc;
 service ChatMessages {
     rpc ChatStream(User) returns (stream ChatMessage);
     rpc SendMessage(ChatMessage) returns (RequestSuccess);
+    rpc SendUserLogin(UserLogin) returns (User);
 }
 
 message User {
@@ -21,6 +22,11 @@ message ChatMessage {
 
 message RequestSuccess {
     bool receivedRequest = 1;
+}
+
+message UserLogin {
+    string userName = 1;
+    string password = 2;
 }
 
 message Empty { }

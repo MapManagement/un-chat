@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\x12\x63hat_message.proto\x12\x04grpc\"(\n\x04User\x12\x0e\n\x06userID\x18\x01 \x01(\t\x12\x10\n\x08userName\x18\x02 \x01(\t\"I\n\x0b\x43hatMessage\x12\x10\n\x08senderID\x18\x01 \x01(\t\x12\x13\n\x0brecipientID\x18\x02 \x01(\t\x12\x13\n\x0bmessageText\x18\x03 \x01(\t\")\n\x0eRequestSuccess\x12\x17\n\x0freceivedRequest\x18\x01 \x01(\x08\"\x07\n\x05\x45mpty2u\n\x0c\x43hatMessages\x12-\n\nChatStream\x12\n.grpc.User\x1a\x11.grpc.ChatMessage0\x01\x12\x36\n\x0bSendMessage\x12\x11.grpc.ChatMessage\x1a\x14.grpc.RequestSuccessb\x06proto3'
+  serialized_pb=b'\n\x12\x63hat_message.proto\x12\x04grpc\"(\n\x04User\x12\x0e\n\x06userID\x18\x01 \x01(\t\x12\x10\n\x08userName\x18\x02 \x01(\t\"I\n\x0b\x43hatMessage\x12\x10\n\x08senderID\x18\x01 \x01(\t\x12\x13\n\x0brecipientID\x18\x02 \x01(\t\x12\x13\n\x0bmessageText\x18\x03 \x01(\t\")\n\x0eRequestSuccess\x12\x17\n\x0freceivedRequest\x18\x01 \x01(\x08\"/\n\tUserLogin\x12\x10\n\x08userName\x18\x01 \x01(\t\x12\x10\n\x08password\x18\x02 \x01(\t\"\x07\n\x05\x45mpty2\xa3\x01\n\x0c\x43hatMessages\x12-\n\nChatStream\x12\n.grpc.User\x1a\x11.grpc.ChatMessage0\x01\x12\x36\n\x0bSendMessage\x12\x11.grpc.ChatMessage\x1a\x14.grpc.RequestSuccess\x12,\n\rSendUserLogin\x12\x0f.grpc.UserLogin\x1a\n.grpc.Userb\x06proto3'
 )
 
 
@@ -142,6 +142,45 @@ _REQUESTSUCCESS = _descriptor.Descriptor(
 )
 
 
+_USERLOGIN = _descriptor.Descriptor(
+  name='UserLogin',
+  full_name='grpc.UserLogin',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='userName', full_name='grpc.UserLogin.userName', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='password', full_name='grpc.UserLogin.password', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=188,
+  serialized_end=235,
+)
+
+
 _EMPTY = _descriptor.Descriptor(
   name='Empty',
   full_name='grpc.Empty',
@@ -162,13 +201,14 @@ _EMPTY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=188,
-  serialized_end=195,
+  serialized_start=237,
+  serialized_end=244,
 )
 
 DESCRIPTOR.message_types_by_name['User'] = _USER
 DESCRIPTOR.message_types_by_name['ChatMessage'] = _CHATMESSAGE
 DESCRIPTOR.message_types_by_name['RequestSuccess'] = _REQUESTSUCCESS
+DESCRIPTOR.message_types_by_name['UserLogin'] = _USERLOGIN
 DESCRIPTOR.message_types_by_name['Empty'] = _EMPTY
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
@@ -193,6 +233,13 @@ RequestSuccess = _reflection.GeneratedProtocolMessageType('RequestSuccess', (_me
   })
 _sym_db.RegisterMessage(RequestSuccess)
 
+UserLogin = _reflection.GeneratedProtocolMessageType('UserLogin', (_message.Message,), {
+  'DESCRIPTOR' : _USERLOGIN,
+  '__module__' : 'chat_message_pb2'
+  # @@protoc_insertion_point(class_scope:grpc.UserLogin)
+  })
+_sym_db.RegisterMessage(UserLogin)
+
 Empty = _reflection.GeneratedProtocolMessageType('Empty', (_message.Message,), {
   'DESCRIPTOR' : _EMPTY,
   '__module__' : 'chat_message_pb2'
@@ -209,8 +256,8 @@ _CHATMESSAGES = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=197,
-  serialized_end=314,
+  serialized_start=247,
+  serialized_end=410,
   methods=[
   _descriptor.MethodDescriptor(
     name='ChatStream',
@@ -229,6 +276,16 @@ _CHATMESSAGES = _descriptor.ServiceDescriptor(
     containing_service=None,
     input_type=_CHATMESSAGE,
     output_type=_REQUESTSUCCESS,
+    serialized_options=None,
+    create_key=_descriptor._internal_create_key,
+  ),
+  _descriptor.MethodDescriptor(
+    name='SendUserLogin',
+    full_name='grpc.ChatMessages.SendUserLogin',
+    index=2,
+    containing_service=None,
+    input_type=_USERLOGIN,
+    output_type=_USER,
     serialized_options=None,
     create_key=_descriptor._internal_create_key,
   ),
