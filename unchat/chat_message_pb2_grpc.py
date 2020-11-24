@@ -24,6 +24,11 @@ class ChatMessagesStub(object):
                 request_serializer=chat__message__pb2.ChatMessage.SerializeToString,
                 response_deserializer=chat__message__pb2.RequestSuccess.FromString,
                 )
+        self.SendUserLogin = channel.unary_unary(
+                '/grpc.ChatMessages/SendUserLogin',
+                request_serializer=chat__message__pb2.UserLogin.SerializeToString,
+                response_deserializer=chat__message__pb2.User.FromString,
+                )
 
 
 class ChatMessagesServicer(object):
@@ -41,6 +46,12 @@ class ChatMessagesServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def SendUserLogin(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_ChatMessagesServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -53,6 +64,11 @@ def add_ChatMessagesServicer_to_server(servicer, server):
                     servicer.SendMessage,
                     request_deserializer=chat__message__pb2.ChatMessage.FromString,
                     response_serializer=chat__message__pb2.RequestSuccess.SerializeToString,
+            ),
+            'SendUserLogin': grpc.unary_unary_rpc_method_handler(
+                    servicer.SendUserLogin,
+                    request_deserializer=chat__message__pb2.UserLogin.FromString,
+                    response_serializer=chat__message__pb2.User.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -95,5 +111,22 @@ class ChatMessages(object):
         return grpc.experimental.unary_unary(request, target, '/grpc.ChatMessages/SendMessage',
             chat__message__pb2.ChatMessage.SerializeToString,
             chat__message__pb2.RequestSuccess.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def SendUserLogin(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/grpc.ChatMessages/SendUserLogin',
+            chat__message__pb2.UserLogin.SerializeToString,
+            chat__message__pb2.User.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
