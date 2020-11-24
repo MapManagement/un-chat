@@ -1,4 +1,5 @@
 from concurrent import futures
+from unchat import database
 
 import grpc
 
@@ -15,7 +16,7 @@ class ChatServer(rpc.ChatMessagesServicer):
         print(f"Incoming Message {request} \n")
         print(context.peer_identity_key())
         self.chats.append(request)
-        return chat.RequestSuccess()
+        return chat.RequestSuccess
 
     def ChatStream(self, request, context):
         last_index = 0
@@ -27,6 +28,26 @@ class ChatServer(rpc.ChatMessagesServicer):
                 print(message)
                 if message.recipientID == request.userID:
                     yield message
+
+    """def SendUserLogin(self, request, context):
+        print(f"New Login: {request}\n")
+        db_connection = database.DBConnector()
+        success = db_connection.insert_user(request)
+        request_success = chat.RequestSuccess
+        request_success.receivedRequest = success
+        return request_success"""
+
+    def SendUserLogin(self, request, context):
+            print(f"New Login: {request}\n")
+            db_connection = database.DBConnector()
+            user_passsword = str(request.password)
+            try:
+                if db_connection.compare_passwords(user_passsword, request.userName):
+                    database_user = db_connection.get_user_by_name(request.userName)
+                    proto_user = chat.User(userID=database_user["user_id"], userName=request.userName)
+                    return proto_user
+            except Exception:
+                return chat.User(userID="", userName="")
 
 
 if __name__ == "__main__":
