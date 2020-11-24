@@ -27,7 +27,12 @@ class ChatMessagesStub(object):
         self.SendUserLogin = channel.unary_unary(
                 '/grpc.ChatMessages/SendUserLogin',
                 request_serializer=chat__message__pb2.UserLogin.SerializeToString,
-                response_deserializer=chat__message__pb2.User.FromString,
+                response_deserializer=chat__message__pb2.UserInformation.FromString,
+                )
+        self.SendUserRegistration = channel.unary_unary(
+                '/grpc.ChatMessages/SendUserRegistration',
+                request_serializer=chat__message__pb2.UserLogin.SerializeToString,
+                response_deserializer=chat__message__pb2.RequestSuccess.FromString,
                 )
 
 
@@ -52,6 +57,12 @@ class ChatMessagesServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def SendUserRegistration(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_ChatMessagesServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -68,7 +79,12 @@ def add_ChatMessagesServicer_to_server(servicer, server):
             'SendUserLogin': grpc.unary_unary_rpc_method_handler(
                     servicer.SendUserLogin,
                     request_deserializer=chat__message__pb2.UserLogin.FromString,
-                    response_serializer=chat__message__pb2.User.SerializeToString,
+                    response_serializer=chat__message__pb2.UserInformation.SerializeToString,
+            ),
+            'SendUserRegistration': grpc.unary_unary_rpc_method_handler(
+                    servicer.SendUserRegistration,
+                    request_deserializer=chat__message__pb2.UserLogin.FromString,
+                    response_serializer=chat__message__pb2.RequestSuccess.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -127,6 +143,23 @@ class ChatMessages(object):
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/grpc.ChatMessages/SendUserLogin',
             chat__message__pb2.UserLogin.SerializeToString,
-            chat__message__pb2.User.FromString,
+            chat__message__pb2.UserInformation.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def SendUserRegistration(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/grpc.ChatMessages/SendUserRegistration',
+            chat__message__pb2.UserLogin.SerializeToString,
+            chat__message__pb2.RequestSuccess.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

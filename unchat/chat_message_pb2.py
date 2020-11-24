@@ -11,6 +11,7 @@ from google.protobuf import symbol_database as _symbol_database
 _sym_db = _symbol_database.Default()
 
 
+from google.protobuf import timestamp_pb2 as google_dot_protobuf_dot_timestamp__pb2
 
 
 DESCRIPTOR = _descriptor.FileDescriptor(
@@ -19,8 +20,9 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\x12\x63hat_message.proto\x12\x04grpc\"(\n\x04User\x12\x0e\n\x06userID\x18\x01 \x01(\t\x12\x10\n\x08userName\x18\x02 \x01(\t\"I\n\x0b\x43hatMessage\x12\x10\n\x08senderID\x18\x01 \x01(\t\x12\x13\n\x0brecipientID\x18\x02 \x01(\t\x12\x13\n\x0bmessageText\x18\x03 \x01(\t\")\n\x0eRequestSuccess\x12\x17\n\x0freceivedRequest\x18\x01 \x01(\x08\"/\n\tUserLogin\x12\x10\n\x08userName\x18\x01 \x01(\t\x12\x10\n\x08password\x18\x02 \x01(\t\"\x07\n\x05\x45mpty2\xa3\x01\n\x0c\x43hatMessages\x12-\n\nChatStream\x12\n.grpc.User\x1a\x11.grpc.ChatMessage0\x01\x12\x36\n\x0bSendMessage\x12\x11.grpc.ChatMessage\x1a\x14.grpc.RequestSuccess\x12,\n\rSendUserLogin\x12\x0f.grpc.UserLogin\x1a\n.grpc.Userb\x06proto3'
-)
+  serialized_pb=b'\n\x12\x63hat_message.proto\x12\x04grpc\x1a\x1fgoogle/protobuf/timestamp.proto\"(\n\x04User\x12\x0e\n\x06userID\x18\x01 \x01(\t\x12\x10\n\x08userName\x18\x02 \x01(\t\"\x8f\x01\n\x0fUserInformation\x12\x0e\n\x06userID\x18\x01 \x01(\t\x12.\n\nsignUpDate\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x0e\n\x06status\x18\x03 \x01(\t\x12\x11\n\tbiography\x18\x04 \x01(\t\x12\x19\n\x11profilePictureDir\x18\x05 \x01(\t\"I\n\x0b\x43hatMessage\x12\x10\n\x08senderID\x18\x01 \x01(\t\x12\x13\n\x0brecipientID\x18\x02 \x01(\t\x12\x13\n\x0bmessageText\x18\x03 \x01(\t\")\n\x0eRequestSuccess\x12\x17\n\x0freceivedRequest\x18\x01 \x01(\x08\"/\n\tUserLogin\x12\x10\n\x08userName\x18\x01 \x01(\t\x12\x10\n\x08password\x18\x02 \x01(\t\"\x07\n\x05\x45mpty2\xed\x01\n\x0c\x43hatMessages\x12-\n\nChatStream\x12\n.grpc.User\x1a\x11.grpc.ChatMessage0\x01\x12\x36\n\x0bSendMessage\x12\x11.grpc.ChatMessage\x1a\x14.grpc.RequestSuccess\x12\x37\n\rSendUserLogin\x12\x0f.grpc.UserLogin\x1a\x15.grpc.UserInformation\x12=\n\x14SendUserRegistration\x12\x0f.grpc.UserLogin\x1a\x14.grpc.RequestSuccessb\x06proto3'
+  ,
+  dependencies=[google_dot_protobuf_dot_timestamp__pb2.DESCRIPTOR,])
 
 
 
@@ -59,8 +61,68 @@ _USER = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=28,
-  serialized_end=68,
+  serialized_start=61,
+  serialized_end=101,
+)
+
+
+_USERINFORMATION = _descriptor.Descriptor(
+  name='UserInformation',
+  full_name='grpc.UserInformation',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='userID', full_name='grpc.UserInformation.userID', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='signUpDate', full_name='grpc.UserInformation.signUpDate', index=1,
+      number=2, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='status', full_name='grpc.UserInformation.status', index=2,
+      number=3, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='biography', full_name='grpc.UserInformation.biography', index=3,
+      number=4, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='profilePictureDir', full_name='grpc.UserInformation.profilePictureDir', index=4,
+      number=5, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=104,
+  serialized_end=247,
 )
 
 
@@ -105,8 +167,8 @@ _CHATMESSAGE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=70,
-  serialized_end=143,
+  serialized_start=249,
+  serialized_end=322,
 )
 
 
@@ -137,8 +199,8 @@ _REQUESTSUCCESS = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=145,
-  serialized_end=186,
+  serialized_start=324,
+  serialized_end=365,
 )
 
 
@@ -176,8 +238,8 @@ _USERLOGIN = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=188,
-  serialized_end=235,
+  serialized_start=367,
+  serialized_end=414,
 )
 
 
@@ -201,11 +263,13 @@ _EMPTY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=237,
-  serialized_end=244,
+  serialized_start=416,
+  serialized_end=423,
 )
 
+_USERINFORMATION.fields_by_name['signUpDate'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
 DESCRIPTOR.message_types_by_name['User'] = _USER
+DESCRIPTOR.message_types_by_name['UserInformation'] = _USERINFORMATION
 DESCRIPTOR.message_types_by_name['ChatMessage'] = _CHATMESSAGE
 DESCRIPTOR.message_types_by_name['RequestSuccess'] = _REQUESTSUCCESS
 DESCRIPTOR.message_types_by_name['UserLogin'] = _USERLOGIN
@@ -218,6 +282,13 @@ User = _reflection.GeneratedProtocolMessageType('User', (_message.Message,), {
   # @@protoc_insertion_point(class_scope:grpc.User)
   })
 _sym_db.RegisterMessage(User)
+
+UserInformation = _reflection.GeneratedProtocolMessageType('UserInformation', (_message.Message,), {
+  'DESCRIPTOR' : _USERINFORMATION,
+  '__module__' : 'chat_message_pb2'
+  # @@protoc_insertion_point(class_scope:grpc.UserInformation)
+  })
+_sym_db.RegisterMessage(UserInformation)
 
 ChatMessage = _reflection.GeneratedProtocolMessageType('ChatMessage', (_message.Message,), {
   'DESCRIPTOR' : _CHATMESSAGE,
@@ -256,8 +327,8 @@ _CHATMESSAGES = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=247,
-  serialized_end=410,
+  serialized_start=426,
+  serialized_end=663,
   methods=[
   _descriptor.MethodDescriptor(
     name='ChatStream',
@@ -285,7 +356,17 @@ _CHATMESSAGES = _descriptor.ServiceDescriptor(
     index=2,
     containing_service=None,
     input_type=_USERLOGIN,
-    output_type=_USER,
+    output_type=_USERINFORMATION,
+    serialized_options=None,
+    create_key=_descriptor._internal_create_key,
+  ),
+  _descriptor.MethodDescriptor(
+    name='SendUserRegistration',
+    full_name='grpc.ChatMessages.SendUserRegistration',
+    index=3,
+    containing_service=None,
+    input_type=_USERLOGIN,
+    output_type=_REQUESTSUCCESS,
     serialized_options=None,
     create_key=_descriptor._internal_create_key,
   ),

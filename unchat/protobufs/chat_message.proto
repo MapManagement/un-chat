@@ -1,17 +1,27 @@
 syntax="proto3";
 
+import "google/protobuf/timestamp.proto";
 
 package grpc;
 
 service ChatMessages {
     rpc ChatStream(User) returns (stream ChatMessage);
     rpc SendMessage(ChatMessage) returns (RequestSuccess);
-    rpc SendUserLogin(UserLogin) returns (User);
+    rpc SendUserLogin(UserLogin) returns (UserInformation);
+    rpc SendUserRegistration(UserLogin) returns (RequestSuccess);
 }
 
 message User {
     string userID = 1;
     string userName = 2;
+}
+
+message UserInformation {
+    string userID = 1;
+    google.protobuf.Timestamp signUpDate = 2;
+    string status = 3;
+    string biography = 4;
+    string profilePictureDir = 5;
 }
 
 message ChatMessage {
