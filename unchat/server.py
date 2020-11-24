@@ -29,14 +29,6 @@ class ChatServer(rpc.ChatMessagesServicer):
                 if message.recipientID == request.userID:
                     yield message
 
-    """def SendUserLogin(self, request, context):
-        print(f"New Login: {request}\n")
-        db_connection = database.DBConnector()
-        success = db_connection.insert_user(request)
-        request_success = chat.RequestSuccess
-        request_success.receivedRequest = success
-        return request_success"""
-
     def SendUserLogin(self, request, context):
             print(f"New Login: {request}\n")
             db_connection = database.DBConnector()
@@ -44,10 +36,29 @@ class ChatServer(rpc.ChatMessagesServicer):
             try:
                 if db_connection.compare_passwords(user_passsword, request.userName):
                     database_user = db_connection.get_user_by_name(request.userName)
-                    proto_user = chat.User(userID=database_user["user_id"], userName=request.userName)
-                    return proto_user
+                    proto_user_information = chat.UserInformation(
+                        userID=database_user["user_id"],
+                        userName=request.userName,
+                        signUpDate=database_user["created_at"],
+                        status=database_user["status"],
+                        biograpgy=database_user["biography"],
+                        profilePictureDir=database_user["path_profile_picture"]
+                    )
+                    return proto_user_information
             except Exception:
-                return chat.User(userID="", userName="")
+                return chat.UserInformation()
+
+    def SendUserRegistration(self, request, context):
+        print(f"New Registration: {request}\n")
+        db_connection = database.DBConnector()
+        user_password = str(request.password)
+        user_name = str(request.username)
+        user = chat.User(userName=user_name, password=user_password)
+        try:
+            db_connection.insert_user(user)
+            return chat.RequestSuccess(receivedRequest=True)
+        except Exception:
+            return chat.RequestSuccess(receivedRequest=False)
 
 
 if __name__ == "__main__":
