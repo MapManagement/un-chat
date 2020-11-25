@@ -25,16 +25,15 @@ class DBConnector:
         return user
 
     def insert_user(self, user: chat.UserLogin) -> bool:
-        sql_statement = "INSERT INTO Users (user_id, user_name, password) VALUES (%s, %s, %s)"
+        sql_statement = "INSERT INTO Users (user_name, password) VALUES (%s, %s)"
         # user_id
         user_name = user.userName
         password = self.hash_password(user.password)
         # rest is default or set later on
 
-        prepared_statements = ("user_id", user_name, password)
+        prepared_statements = (user_name, password)
         try:
             test = self.cursor.execute(sql_statement, prepared_statements)
-            print(test)
             return True
         except Exception:
             return False
@@ -51,7 +50,10 @@ class DBConnector:
         prepared_statements = (user_name,)
         db_query = self.cursor.execute(sql_statement, prepared_statements)
         password_list = db_query.fetchone()
-        return password_list[0]
+        if password_list is not None:
+            return password_list[0]
+        else:
+            return None
 
     def hash_password(self, password: str):
         bytes_password = bytes(password, "utf-8")
@@ -59,8 +61,12 @@ class DBConnector:
         return hashed_password
 
     def compare_passwords(self, given_password: str, user_name: str):
-        hashed_user_password = bytes(self.get_password_by_user_name(user_name), "utf-8")
-        bytes_given_password = bytes(given_password, "utf-8")
+        password_by_user_name = self.get_password_by_user_name(user_name)
+        if password_by_user_name is not None:
+            hashed_user_password = bytes(self.get_password_by_user_name(user_name), "utf-8")
+            bytes_given_password = bytes(given_password, "utf-8")
 
-        is_password_equal = bcrypt.checkpw(bytes_given_password, hashed_user_password)
-        return is_password_equal
+            is_password_equal = bcrypt.checkpw(bytes_given_password, hashed_user_password)
+            return is_password_equal
+        else:
+            return False
