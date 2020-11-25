@@ -39,21 +39,22 @@ class ChatServer(rpc.ChatMessagesServicer):
             database_user = db_connection.get_user_by_name(request.userName)
             timestamp_object = Timestamp(seconds=int(database_user[3].timestamp()))
             proto_user_information = chat.UserInformation(
-                userID=database_user[0],
+                userID=str(database_user[0]),
                 signUpDate=timestamp_object,
                 status=database_user[4],
                 biography=database_user[5],
                 profilePictureDir=database_user[6]
             )
             return proto_user_information
-        except Exception:
+        except Exception as ex:
+            print(ex)
             return chat.UserInformation()
 
     def CheckUserLogin(self, request, context):
         db_connection = database.DBConnector()
-        user_passsword = str(request.password)
+        user_password = str(request.password)
 
-        passwords_equal = db_connection.compare_passwords(user_passsword, request.userName)
+        passwords_equal = db_connection.compare_passwords(user_password, request.userName)
         return chat.RequestSuccess(receivedRequest=passwords_equal)
 
     def SendUserRegistration(self, request, context):
