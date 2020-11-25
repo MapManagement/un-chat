@@ -24,13 +24,18 @@ class ChatMessagesStub(object):
                 request_serializer=chat__message__pb2.ChatMessage.SerializeToString,
                 response_deserializer=chat__message__pb2.RequestSuccess.FromString,
                 )
-        self.SendUserLogin = channel.unary_unary(
-                '/grpc.ChatMessages/SendUserLogin',
-                request_serializer=chat__message__pb2.UserLogin.SerializeToString,
+        self.SendUserInformation = channel.unary_unary(
+                '/grpc.ChatMessages/SendUserInformation',
+                request_serializer=chat__message__pb2.User.SerializeToString,
                 response_deserializer=chat__message__pb2.UserInformation.FromString,
                 )
         self.SendUserRegistration = channel.unary_unary(
                 '/grpc.ChatMessages/SendUserRegistration',
+                request_serializer=chat__message__pb2.UserLogin.SerializeToString,
+                response_deserializer=chat__message__pb2.RequestSuccess.FromString,
+                )
+        self.CheckUserLogin = channel.unary_unary(
+                '/grpc.ChatMessages/CheckUserLogin',
                 request_serializer=chat__message__pb2.UserLogin.SerializeToString,
                 response_deserializer=chat__message__pb2.RequestSuccess.FromString,
                 )
@@ -51,13 +56,19 @@ class ChatMessagesServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def SendUserLogin(self, request, context):
+    def SendUserInformation(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def SendUserRegistration(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def CheckUserLogin(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -76,13 +87,18 @@ def add_ChatMessagesServicer_to_server(servicer, server):
                     request_deserializer=chat__message__pb2.ChatMessage.FromString,
                     response_serializer=chat__message__pb2.RequestSuccess.SerializeToString,
             ),
-            'SendUserLogin': grpc.unary_unary_rpc_method_handler(
-                    servicer.SendUserLogin,
-                    request_deserializer=chat__message__pb2.UserLogin.FromString,
+            'SendUserInformation': grpc.unary_unary_rpc_method_handler(
+                    servicer.SendUserInformation,
+                    request_deserializer=chat__message__pb2.User.FromString,
                     response_serializer=chat__message__pb2.UserInformation.SerializeToString,
             ),
             'SendUserRegistration': grpc.unary_unary_rpc_method_handler(
                     servicer.SendUserRegistration,
+                    request_deserializer=chat__message__pb2.UserLogin.FromString,
+                    response_serializer=chat__message__pb2.RequestSuccess.SerializeToString,
+            ),
+            'CheckUserLogin': grpc.unary_unary_rpc_method_handler(
+                    servicer.CheckUserLogin,
                     request_deserializer=chat__message__pb2.UserLogin.FromString,
                     response_serializer=chat__message__pb2.RequestSuccess.SerializeToString,
             ),
@@ -131,7 +147,7 @@ class ChatMessages(object):
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
-    def SendUserLogin(request,
+    def SendUserInformation(request,
             target,
             options=(),
             channel_credentials=None,
@@ -141,8 +157,8 @@ class ChatMessages(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/grpc.ChatMessages/SendUserLogin',
-            chat__message__pb2.UserLogin.SerializeToString,
+        return grpc.experimental.unary_unary(request, target, '/grpc.ChatMessages/SendUserInformation',
+            chat__message__pb2.User.SerializeToString,
             chat__message__pb2.UserInformation.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
@@ -159,6 +175,23 @@ class ChatMessages(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/grpc.ChatMessages/SendUserRegistration',
+            chat__message__pb2.UserLogin.SerializeToString,
+            chat__message__pb2.RequestSuccess.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def CheckUserLogin(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/grpc.ChatMessages/CheckUserLogin',
             chat__message__pb2.UserLogin.SerializeToString,
             chat__message__pb2.RequestSuccess.FromString,
             options, channel_credentials,

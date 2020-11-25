@@ -7,8 +7,9 @@ package grpc;
 service ChatMessages {
     rpc ChatStream(User) returns (stream ChatMessage);
     rpc SendMessage(ChatMessage) returns (RequestSuccess);
-    rpc SendUserLogin(UserLogin) returns (UserInformation);
+    rpc SendUserInformation(User) returns (UserInformation);
     rpc SendUserRegistration(UserLogin) returns (RequestSuccess);
+    rpc CheckUserLogin(UserLogin) returns (RequestSuccess);
 }
 
 message User {
