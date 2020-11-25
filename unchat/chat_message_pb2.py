@@ -20,7 +20,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\x12\x63hat_message.proto\x12\x04grpc\x1a\x1fgoogle/protobuf/timestamp.proto\"(\n\x04User\x12\x0e\n\x06userID\x18\x01 \x01(\t\x12\x10\n\x08userName\x18\x02 \x01(\t\"\x8f\x01\n\x0fUserInformation\x12\x0e\n\x06userID\x18\x01 \x01(\t\x12.\n\nsignUpDate\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x0e\n\x06status\x18\x03 \x01(\t\x12\x11\n\tbiography\x18\x04 \x01(\t\x12\x19\n\x11profilePictureDir\x18\x05 \x01(\t\"I\n\x0b\x43hatMessage\x12\x10\n\x08senderID\x18\x01 \x01(\t\x12\x13\n\x0brecipientID\x18\x02 \x01(\t\x12\x13\n\x0bmessageText\x18\x03 \x01(\t\")\n\x0eRequestSuccess\x12\x17\n\x0freceivedRequest\x18\x01 \x01(\x08\"/\n\tUserLogin\x12\x10\n\x08userName\x18\x01 \x01(\t\x12\x10\n\x08password\x18\x02 \x01(\t\"\x07\n\x05\x45mpty2\xed\x01\n\x0c\x43hatMessages\x12-\n\nChatStream\x12\n.grpc.User\x1a\x11.grpc.ChatMessage0\x01\x12\x36\n\x0bSendMessage\x12\x11.grpc.ChatMessage\x1a\x14.grpc.RequestSuccess\x12\x37\n\rSendUserLogin\x12\x0f.grpc.UserLogin\x1a\x15.grpc.UserInformation\x12=\n\x14SendUserRegistration\x12\x0f.grpc.UserLogin\x1a\x14.grpc.RequestSuccessb\x06proto3'
+  serialized_pb=b'\n\x12\x63hat_message.proto\x12\x04grpc\x1a\x1fgoogle/protobuf/timestamp.proto\"(\n\x04User\x12\x0e\n\x06userID\x18\x01 \x01(\t\x12\x10\n\x08userName\x18\x02 \x01(\t\"\x8f\x01\n\x0fUserInformation\x12\x0e\n\x06userID\x18\x01 \x01(\t\x12.\n\nsignUpDate\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x0e\n\x06status\x18\x03 \x01(\t\x12\x11\n\tbiography\x18\x04 \x01(\t\x12\x19\n\x11profilePictureDir\x18\x05 \x01(\t\"I\n\x0b\x43hatMessage\x12\x10\n\x08senderID\x18\x01 \x01(\t\x12\x13\n\x0brecipientID\x18\x02 \x01(\t\x12\x13\n\x0bmessageText\x18\x03 \x01(\t\")\n\x0eRequestSuccess\x12\x17\n\x0freceivedRequest\x18\x01 \x01(\x08\"/\n\tUserLogin\x12\x10\n\x08userName\x18\x01 \x01(\t\x12\x10\n\x08password\x18\x02 \x01(\t\"\x07\n\x05\x45mpty2\xa7\x02\n\x0c\x43hatMessages\x12-\n\nChatStream\x12\n.grpc.User\x1a\x11.grpc.ChatMessage0\x01\x12\x36\n\x0bSendMessage\x12\x11.grpc.ChatMessage\x1a\x14.grpc.RequestSuccess\x12\x38\n\x13SendUserInformation\x12\n.grpc.User\x1a\x15.grpc.UserInformation\x12=\n\x14SendUserRegistration\x12\x0f.grpc.UserLogin\x1a\x14.grpc.RequestSuccess\x12\x37\n\x0e\x43heckUserLogin\x12\x0f.grpc.UserLogin\x1a\x14.grpc.RequestSuccessb\x06proto3'
   ,
   dependencies=[google_dot_protobuf_dot_timestamp__pb2.DESCRIPTOR,])
 
@@ -328,7 +328,7 @@ _CHATMESSAGES = _descriptor.ServiceDescriptor(
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
   serialized_start=426,
-  serialized_end=663,
+  serialized_end=721,
   methods=[
   _descriptor.MethodDescriptor(
     name='ChatStream',
@@ -351,11 +351,11 @@ _CHATMESSAGES = _descriptor.ServiceDescriptor(
     create_key=_descriptor._internal_create_key,
   ),
   _descriptor.MethodDescriptor(
-    name='SendUserLogin',
-    full_name='grpc.ChatMessages.SendUserLogin',
+    name='SendUserInformation',
+    full_name='grpc.ChatMessages.SendUserInformation',
     index=2,
     containing_service=None,
-    input_type=_USERLOGIN,
+    input_type=_USER,
     output_type=_USERINFORMATION,
     serialized_options=None,
     create_key=_descriptor._internal_create_key,
@@ -364,6 +364,16 @@ _CHATMESSAGES = _descriptor.ServiceDescriptor(
     name='SendUserRegistration',
     full_name='grpc.ChatMessages.SendUserRegistration',
     index=3,
+    containing_service=None,
+    input_type=_USERLOGIN,
+    output_type=_REQUESTSUCCESS,
+    serialized_options=None,
+    create_key=_descriptor._internal_create_key,
+  ),
+  _descriptor.MethodDescriptor(
+    name='CheckUserLogin',
+    full_name='grpc.ChatMessages.CheckUserLogin',
+    index=4,
     containing_service=None,
     input_type=_USERLOGIN,
     output_type=_REQUESTSUCCESS,
