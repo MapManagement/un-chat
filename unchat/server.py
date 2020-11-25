@@ -1,7 +1,10 @@
 from concurrent import futures
 from unchat import database
+from google.protobuf.timestamp_pb2 import Timestamp
 
 import grpc
+import datetime
+import time
 
 import unchat.chat_message_pb2_grpc as rpc
 import unchat.chat_message_pb2 as chat
@@ -29,41 +32,43 @@ class ChatServer(rpc.ChatMessagesServicer):
                 if message.recipientID == request.userID:
                     yield message
 
-    def SendUserLogin(self, request, context):
-            print(f"New Login: {request}\n")
-            db_connection = database.DBConnector()
-            user_passsword = str(request.password)
-            try:
-                if db_connection.compare_passwords(user_passsword, request.userName):
-                    database_user = db_connection.get_user_by_name(request.userName)
-                    proto_user_information = chat.UserInformation(
-                        userID=database_user["user_id"],
-                        userName=request.userName,
-                        signUpDate=database_user["created_at"],
-                        status=database_user["status"],
-                        biograpgy=database_user["biography"],
-                        profilePictureDir=database_user["path_profile_picture"]
-                    )
-                    return proto_user_information
-            except Exception:
-                return chat.UserInformation()
+    def SendUserInformation(self, request, context):
+        print(f"New Login: {request}\n")
+        db_connection = database.DBConnector()
+        try:
+            database_user = db_connection.get_user_by_name(request.userName)
+            timestamp_object = Timestamp(seconds=int(database_user[3].timestamp()))
+            proto_user_information = chat.UserInformation(
+                userID=database_user[0],
+                signUpDate=timestamp_object,
+                status=database_user[4],
+                biography=database_user[5],
+                profilePictureDir=database_user[6]
+            )
+            return proto_user_information
+        except Exception:
+            return chat.UserInformation()
+
+    def CheckUserLogin(self, request, context):
+        db_connection = database.DBConnector()
+        user_passsword = str(request.password)
+
+        passwords_equal = db_connection.compare_passwords(user_passsword, request.userName)
+        return chat.RequestSuccess(receivedRequest=passwords_equal)
 
     def SendUserRegistration(self, request, context):
         print(f"New Registration: {request}\n")
         db_connection = database.DBConnector()
         user_password = str(request.password)
-        user_name = str(request.username)
-        user = chat.User(userName=user_name, password=user_password)
-        try:
-            db_connection.insert_user(user)
-            return chat.RequestSuccess(receivedRequest=True)
-        except Exception:
-            return chat.RequestSuccess(receivedRequest=False)
+        user_name = str(request.userName)
+        user = chat.UserLogin(userName=user_name, password=user_password)
+        success = db_connection.insert_user(user)
+        return chat.RequestSuccess(receivedRequest=success)
 
 
 if __name__ == "__main__":
     print("Starting chat server...\n")
-    port = 180302
+    port = 32002
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=8))
     rpc.add_ChatMessagesServicer_to_server(ChatServer(), server)
     server.add_insecure_port(f'[::]:{port}')
