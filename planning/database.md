@@ -10,15 +10,15 @@ be done by the server instance and the provided data added to the database. Furt
 are now able as long as the user still knows the password and his user name.  
 Following table shows the database structure:
 
-| Column Name             | Data Type    | Primary Key | Not Null | Default* |
-|:-----------------------:|:------------:|:-----------:|:--------:|:--------:|
-| user_id                 | MEDIUMINT  | Yes         | Yes      | No       |
-| user_name               | VARCHAR(32)  | No          | Yes      | No       |
-| password                | VARCHAR(64)  | No          | Yes      | No       |
-| created_at              | DATETIME     | No          | Yes      | Yes      |
-| status                  | VARCHAR(32)  | No          | No       | Yes      |
-| biography               | VARCHAR(128) | No          | No       | No       |
-| path_profile_picture    | VARCHAR(256) | No          | Yes      | Yes      |
+| Column Name             | Data Type    | Key | Not Null | Default* |
+|:-----------------------:|:------------:|:---:|:--------:|:--------:|
+| user_id                 | MEDIUMINT    | PK  | Yes      | No       |
+| user_name               | VARCHAR(32)  |     | Yes      | No       |
+| password                | VARCHAR(64)  |     | Yes      | No       |
+| created_at              | DATETIME     |     | Yes      | Yes      |
+| status                  | VARCHAR(32)  |     | No       | Yes      |
+| biography               | VARCHAR(128) |     | No       | No       |
+| path_profile_picture    | VARCHAR(256) |     | Yes      | Yes      |
 
 *Default means following values:  
 - CreatedAt: Datetime when clicking on submit button
@@ -33,13 +33,13 @@ so I created another table and named it ``Chats``. It only contains the ``sender
 ``recipient_id`` and the datetime of the last message, respectively ``last_message_datetime``.
 The whole chat also receives a ``chat_id``.
 
-| Column Name           | Data Type     | Primary Key | Not Null | Default* |
-|:---------------------:|:-------------:|:-----------:|:--------:|:--------:|
-| chat_id               | MEDIUMINT     | Yes         | Yes      | Yes      |
-| sender_id             | MEDIUMINT     | No          | Yes      | No       |
-| recipient_id          | MEDIUMINT     | No          | Yes      | No       |
-| last_message_datetime | DATETIME      | No          | Yes      | Yes      |
-| chat_history_table    | VARCHAR(127)  | No          | Yes      | No       |
+| Column Name           | Data Type     | Key | Not Null | Default* |
+|:---------------------:|:-------------:|:---:|:--------:|:--------:|
+| chat_id               | MEDIUMINT     | PK  | Yes      | Yes      |
+| sender_id             | MEDIUMINT     | FK  | Yes      | No       |
+| recipient_id          | MEDIUMINT     | FK  | Yes      | No       |
+| last_message_datetime | DATETIME      |     | Yes      | Yes      |
+| chat_history_table    | VARCHAR(127)  |     | Yes      | No       |
 
 ## "ChatHistories" Table
 To keep it even simpler, I decided to create another table: ``ChatHistories``. In contrast
@@ -48,9 +48,9 @@ chat, a new table will be created for the concerned users. Everytime a user send
 it will be stored within this newly created table. Of course, I will work on a proper
 encryption to increase the security. Probably, the table will look like this:
 
- Column Name    | Data Type    | Primary Key | Not Null | Default* |
-|:-------------:|:------------:|:-----------:|:--------:|:--------:|
-| message_id    | MEDIUMINT    | Yes         | Yes      | Yes      |
-| sender_id     | MEDIUMINT    | No          | Yes      | No       |
-| message_text  | VARCHAR(511) | No          | Yes      | No       |
-| sent_datetime | DATETIME     | No          | Yes      | Yes      |
+ Column Name    | Data Type    | Key | Not Null | Default* |
+|:-------------:|:------------:|:---:|:--------:|:--------:|
+| message_id    | MEDIUMINT    | PK  | Yes      | Yes      |
+| sender_id     | MEDIUMINT    | FK  | Yes      | No       |
+| message_text  | VARCHAR(511) | No  | Yes      | No       |
+| sent_datetime | DATETIME     | No  | Yes      | Yes      |

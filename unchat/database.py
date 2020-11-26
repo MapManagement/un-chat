@@ -10,16 +10,16 @@ class DBConnector:
     def __init__(self):
         self.cursor = db.create_engine(secrets.conn)
 
-    def get_user_by_id(self, user_id: str):
+    def get_user_by_id(self, user_id: int):
         sql_statement = "SELECT * FROM Users WHERE user_id = %s"
-        prepared_statements = (user_id,)
+        prepared_statements = (int(user_id),)
         db_query = self.cursor.execute(sql_statement, prepared_statements)
         user = db_query.fetchone()
         return user
 
     def get_user_by_name(self, user_name: str):
-        sql_statement = "SELECT * FROM Users WHERE user_name = %(name)s"
-        prepared_statements = {"name": user_name}
+        sql_statement = "SELECT * FROM Users WHERE user_name = %s"
+        prepared_statements = (user_name,)
         db_query = self.cursor.execute(sql_statement, prepared_statements)
         user = db_query.fetchone()
         return user
@@ -38,9 +38,9 @@ class DBConnector:
         except Exception:
             return False
 
-    def get_password_by_user_id(self, user_id: str):
+    def get_password_by_user_id(self, user_id: int):
         sql_statement = "SELECT password FROM Users WHERE user_id = %s"
-        prepared_statements = (user_id,)
+        prepared_statements = (int(user_id),)
         db_query = self.cursor.execute(sql_statement, prepared_statements)
         password_list = db_query.fetchone()
         return password_list[0]
@@ -70,3 +70,66 @@ class DBConnector:
             return is_password_equal
         else:
             return False
+
+    def get_chats_by_sender_id(self, sender_id: int):
+        sql_statement = "SELECT * FROM Chats WHERE sender_id = %s"
+        prepared_statements = (int(sender_id),)
+        db_query = self.cursor.execute(sql_statement, prepared_statements)
+        chats = db_query.fetchall()
+        print(chats)
+        return chats
+
+    def insert_chat(self, message: chat.ChatMessage):
+        sender_id = message.senderID
+        recipient_id = message.recipientID
+        message_text = message.messageText
+        chat_history_table_name = f"History{sender_id}_{recipient_id}"
+
+        sql_statement_chat = "INSERT INTO Chats (sender_id, recipient_id, chat_history_table) VALUES (%s, %s, %s)"
+        prepared_statements_chat = (int(sender_id), int(recipient_id), chat_history_table_name)
+        self.cursor.execute(sql_statement_chat, prepared_statements_chat)
+
+        sql_statement_history_table = "CREATE TABLE {} (" \
+                                      "message_id MEDIUMINT NOT NULL PRIMARY KEY AUTO_INCREMENT," \
+                                      "sender_id MEDIUMINT NOT NULL," \
+                                      "message_text VARCHAR(511) NOT NULL," \
+                                      "sent_datetime DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP()," \
+                                      "FOREIGN KEY (sender_id) REFERENCES Users(user_id)" \
+                                      ")".format(chat_history_table_name)
+        self.cursor.execute(sql_statement_history_table)
+
+        sql_statement_history = f"INSERT INTO {chat_history_table_name} (sender_id, message_text) VALUES (%s, %s)"
+        prepared_statements_history = (int(sender_id), message_text)
+        self.cursor.execute(sql_statement_history, prepared_statements_history)
+
+    def get_history_by_chat_id(self, chat_id: int):
+        sql_statement_chat_name = "SELECT chat_history_table FROM Chats WHERE chat_id = %s"
+        prepared_statements_chat_name = (int(chat_id),)
+        db_query_chat_name = self.cursor.execute(sql_statement_chat_name, prepared_statements_chat_name)
+        chat_name = db_query_chat_name.fetchone()[0]
+        print(chat_name)
+
+        sql_statement_history = "SELECT * FROM %s"
+        prepared_statements_history = (chat_name,)
+        db_query_history = self.cursor.execute(sql_statement_history, prepared_statements_history)
+        history = db_query_history.fetchall()
+        print(history)
+        return history
+
+    def insert_new_message(self, message: chat.ChatMessage):
+        sender_id = message.senderID
+        recipient_id = message.recipientID
+        message_text = message.messageText
+
+        sql_statement_chat_name = "SELECT chat_history_table FROM Chats WHERE sender_id = %s AND recipient_id = %s"
+        prepared_statements_chat_name = (int(sender_id), int(recipient_id))
+        db_query_chat_name = self.cursor.execute(sql_statement_chat_name, prepared_statements_chat_name)
+        chat_name = db_query_chat_name.fetchone()[0]
+
+        if chat_name is None:
+            self.insert_chat(message)
+
+        sql_statement_insert_message = f"INSERT INTO {chat_name} (sender_id, message_text) " \
+                                       "VALUES (%s, %s)"
+        prepared_statements_insert_message = (int(sender_id), message_text)
+        self.cursor.execute(sql_statement_insert_message, prepared_statements_insert_message)
