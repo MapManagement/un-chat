@@ -14,12 +14,12 @@ class ChatServer(rpc.ChatMessagesServicer):
 
     def __init__(self):
         self.chats = []
+        self.db_connection = database.DBConnector()
 
     def SendMessage(self, request, context):
         print(f"Incoming Message {request} \n")
-        print(context.peer_identity_key())
         self.chats.append(request)
-        return chat.RequestSuccess
+        return chat.RequestSuccess(receivedRequest=True)
 
     def ChatStream(self, request, context):
         last_index = 0
@@ -27,16 +27,16 @@ class ChatServer(rpc.ChatMessagesServicer):
             while len(self.chats) > last_index:
                 message = self.chats[last_index]
                 last_index += 1
-                print(type(message))
-                print(message)
-                if message.recipientID == request.userID:
+                print(f"M: {message}")
+                print(f"R: {request}")
+                if message.recipientID == request.userID or message.senderID == request.userID:
+                    self.db_connection.insert_new_message(message)
                     yield message
 
     def SendUserInformation(self, request, context):
         print(f"New Login: {request}\n")
-        db_connection = database.DBConnector()
         try:
-            database_user = db_connection.get_user_by_name(request.userName)
+            database_user = self.db_connection.get_user_by_name(request.userName)
             timestamp_object = Timestamp(seconds=int(database_user[3].timestamp()))
             proto_user_information = chat.UserInformation(
                 userID=str(database_user[0]),
@@ -51,19 +51,17 @@ class ChatServer(rpc.ChatMessagesServicer):
             return chat.UserInformation()
 
     def CheckUserLogin(self, request, context):
-        db_connection = database.DBConnector()
         user_password = str(request.password)
 
-        passwords_equal = db_connection.compare_passwords(user_password, request.userName)
+        passwords_equal = self.db_connection.compare_passwords(user_password, request.userName)
         return chat.RequestSuccess(receivedRequest=passwords_equal)
 
     def SendUserRegistration(self, request, context):
         print(f"New Registration: {request}\n")
-        db_connection = database.DBConnector()
         user_password = str(request.password)
         user_name = str(request.userName)
         user = chat.UserLogin(userName=user_name, password=user_password)
-        success = db_connection.insert_user(user)
+        success = self.db_connection.insert_user(user)
         return chat.RequestSuccess(receivedRequest=success)
 
 
