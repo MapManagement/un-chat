@@ -27,7 +27,7 @@ class ChatMessagesStub(object):
         self.SendUserInformation = channel.unary_unary(
                 '/grpc.ChatMessages/SendUserInformation',
                 request_serializer=chat__message__pb2.User.SerializeToString,
-                response_deserializer=chat__message__pb2.UserInformation.FromString,
+                response_deserializer=chat__message__pb2.User.FromString,
                 )
         self.SendUserRegistration = channel.unary_unary(
                 '/grpc.ChatMessages/SendUserRegistration',
@@ -57,7 +57,8 @@ class ChatMessagesServicer(object):
         raise NotImplementedError('Method not implemented!')
 
     def SendUserInformation(self, request, context):
-        """Missing associated documentation comment in .proto file."""
+        """SendUserInformation sends a User but only with an userName and an userID and returns the whole stored data
+        """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
@@ -90,7 +91,7 @@ def add_ChatMessagesServicer_to_server(servicer, server):
             'SendUserInformation': grpc.unary_unary_rpc_method_handler(
                     servicer.SendUserInformation,
                     request_deserializer=chat__message__pb2.User.FromString,
-                    response_serializer=chat__message__pb2.UserInformation.SerializeToString,
+                    response_serializer=chat__message__pb2.User.SerializeToString,
             ),
             'SendUserRegistration': grpc.unary_unary_rpc_method_handler(
                     servicer.SendUserRegistration,
@@ -159,7 +160,7 @@ class ChatMessages(object):
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/grpc.ChatMessages/SendUserInformation',
             chat__message__pb2.User.SerializeToString,
-            chat__message__pb2.UserInformation.FromString,
+            chat__message__pb2.User.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
