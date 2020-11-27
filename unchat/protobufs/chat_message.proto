@@ -7,7 +7,8 @@ package grpc;
 service ChatMessages {
     rpc ChatStream(User) returns (stream ChatMessage);
     rpc SendMessage(ChatMessage) returns (RequestSuccess);
-    rpc SendUserInformation(User) returns (UserInformation);
+    // SendUserInformation sends a User but only with an userName and an userID and returns the whole stored data
+    rpc SendUserInformation(User) returns (User);
     rpc SendUserRegistration(UserLogin) returns (RequestSuccess);
     rpc CheckUserLogin(UserLogin) returns (RequestSuccess);
 }
@@ -15,14 +16,11 @@ service ChatMessages {
 message User {
     string userID = 1;
     string userName = 2;
-}
+    google.protobuf.Timestamp signUpDate = 3;
+    string status = 4;
+    string biography = 5;
+    string profilePictureDir = 6;
 
-message UserInformation {
-    string userID = 1;
-    google.protobuf.Timestamp signUpDate = 2;
-    string status = 3;
-    string biography = 4;
-    string profilePictureDir = 5;
 }
 
 message ChatMessage {
