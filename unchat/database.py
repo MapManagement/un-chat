@@ -85,19 +85,17 @@ class DBConnector:
         message_text = message.messageText
         chat_history_table_name = f"History{sender_id}_{recipient_id}"
 
+        # insert new chat into sender-recipient form
         sql_statement_chat = "INSERT INTO Chats (sender_id, recipient_id, chat_history_table) VALUES (%s, %s, %s)"
         prepared_statements_chat = (int(sender_id), int(recipient_id), chat_history_table_name)
         self.cursor.execute(sql_statement_chat, prepared_statements_chat)
 
-        sql_statement_history_table = "CREATE TABLE {} (" \
-                                      "message_id MEDIUMINT NOT NULL PRIMARY KEY AUTO_INCREMENT," \
-                                      "sender_id MEDIUMINT NOT NULL," \
-                                      "message_text VARCHAR(511) NOT NULL," \
-                                      "sent_datetime DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP()," \
-                                      "FOREIGN KEY (sender_id) REFERENCES Users(user_id)" \
-                                      ")".format(chat_history_table_name)
-        self.cursor.execute(sql_statement_history_table)
+        # insert new chat also into recipient-sender form
+        sql_statement_chat = "INSERT INTO Chats (sender_id, recipient_id, chat_history_table) VALUES (%s, %s, %s)"
+        prepared_statements_chat = (int(recipient_id), int(sender_id), chat_history_table_name)
+        self.cursor.execute(sql_statement_chat, prepared_statements_chat)
 
+        self.create_new_history_table(chat_history_table_name)
         sql_statement_history = f"INSERT INTO {chat_history_table_name} (sender_id, message_text) VALUES (%s, %s)"
         prepared_statements_history = (int(sender_id), message_text)
         self.cursor.execute(sql_statement_history, prepared_statements_history)
@@ -120,16 +118,28 @@ class DBConnector:
         sender_id = message.senderID
         recipient_id = message.recipientID
         message_text = message.messageText
+        chat_history_table_name = f"History{sender_id}_{recipient_id}"
 
-        sql_statement_chat_name = "SELECT chat_history_table FROM Chats WHERE sender_id = %s AND recipient_id = %s"
-        prepared_statements_chat_name = (int(sender_id), int(recipient_id))
+        sql_statement_chat_name = "SELECT chat_history_table FROM Chats WHERE (sender_id = %s AND recipient_id = %s)" \
+                                  "OR (sender_id = %s AND recipient_id = %s)"
+        prepared_statements_chat_name = (int(sender_id), int(recipient_id), int(recipient_id), int(sender_id))
         db_query_chat_name = self.cursor.execute(sql_statement_chat_name, prepared_statements_chat_name)
-        chat_name = db_query_chat_name.fetchone()[0]
+        chat_name = db_query_chat_name.fetchone()
 
         if chat_name is None:
             self.insert_chat(message)
 
-        sql_statement_insert_message = f"INSERT INTO {chat_name} (sender_id, message_text) " \
+        sql_statement_insert_message = f"INSERT INTO {chat_history_table_name} (sender_id, message_text) " \
                                        "VALUES (%s, %s)"
         prepared_statements_insert_message = (int(sender_id), message_text)
         self.cursor.execute(sql_statement_insert_message, prepared_statements_insert_message)
+
+    def create_new_history_table(self, table_name: str):
+        sql_statement_history_table = "CREATE TABLE {} (" \
+                                      "message_id MEDIUMINT NOT NULL PRIMARY KEY AUTO_INCREMENT," \
+                                      "sender_id MEDIUMINT NOT NULL," \
+                                      "message_text VARCHAR(511) NOT NULL," \
+                                      "sent_datetime DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP()," \
+                                      "FOREIGN KEY (sender_id) REFERENCES Users(user_id)" \
+                                      ")".format(table_name)
+        self.cursor.execute(sql_statement_history_table)
