@@ -38,8 +38,9 @@ class ChatServer(rpc.ChatMessagesServicer):
         try:
             database_user = self.db_connection.get_user_by_name(request.userName)
             timestamp_object = Timestamp(seconds=int(database_user[3].timestamp()))
-            proto_user_information = chat.UserInformation(
+            proto_user_information = chat.User(
                 userID=str(database_user[0]),
+                userName=database_user[1],
                 signUpDate=timestamp_object,
                 status=database_user[4],
                 biography=database_user[5],
@@ -48,7 +49,7 @@ class ChatServer(rpc.ChatMessagesServicer):
             return proto_user_information
         except Exception as ex:
             print(ex)
-            return chat.UserInformation()
+            return chat.User()
 
     def CheckUserLogin(self, request, context):
         user_password = str(request.password)
