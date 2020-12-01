@@ -20,7 +20,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\x12\x63hat_message.proto\x12\x04grpc\x1a\x1fgoogle/protobuf/timestamp.proto\"\xac\x01\n\x04User\x12\x0e\n\x06userID\x18\x01 \x01(\t\x12\x10\n\x08userName\x18\x02 \x01(\t\x12.\n\nsignUpDate\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x0e\n\x06status\x18\x04 \x01(\t\x12\x11\n\tbiography\x18\x05 \x01(\t\x12\x19\n\x11profilePictureDir\x18\x06 \x01(\t\x12\x14\n\x0cisUserUpdate\x18\x07 \x01(\x08\"I\n\x0b\x43hatMessage\x12\x10\n\x08senderID\x18\x01 \x01(\t\x12\x13\n\x0brecipientID\x18\x02 \x01(\t\x12\x13\n\x0bmessageText\x18\x03 \x01(\t\")\n\x0eRequestSuccess\x12\x17\n\x0freceivedRequest\x18\x01 \x01(\x08\"/\n\tUserLogin\x12\x10\n\x08userName\x18\x01 \x01(\t\x12\x10\n\x08password\x18\x02 \x01(\t\"\x07\n\x05\x45mpty2\x9c\x02\n\x0c\x43hatMessages\x12-\n\nChatStream\x12\n.grpc.User\x1a\x11.grpc.ChatMessage0\x01\x12\x36\n\x0bSendMessage\x12\x11.grpc.ChatMessage\x1a\x14.grpc.RequestSuccess\x12-\n\x13SendUserInformation\x12\n.grpc.User\x1a\n.grpc.User\x12=\n\x14SendUserRegistration\x12\x0f.grpc.UserLogin\x1a\x14.grpc.RequestSuccess\x12\x37\n\x0e\x43heckUserLogin\x12\x0f.grpc.UserLogin\x1a\x14.grpc.RequestSuccessb\x06proto3'
+  serialized_pb=b'\n\x12\x63hat_message.proto\x12\x04grpc\x1a\x1fgoogle/protobuf/timestamp.proto\"\xac\x01\n\x04User\x12\x0e\n\x06userID\x18\x01 \x01(\t\x12\x10\n\x08userName\x18\x02 \x01(\t\x12.\n\nsignUpDate\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x0e\n\x06status\x18\x04 \x01(\t\x12\x11\n\tbiography\x18\x05 \x01(\t\x12\x19\n\x11profilePictureDir\x18\x06 \x01(\t\x12\x14\n\x0cisUserUpdate\x18\x07 \x01(\x08\"%\n\tUserArray\x12\x18\n\x04user\x18\x01 \x03(\x0b\x32\n.grpc.User\"I\n\x0b\x43hatMessage\x12\x10\n\x08senderID\x18\x01 \x01(\t\x12\x13\n\x0brecipientID\x18\x02 \x01(\t\x12\x13\n\x0bmessageText\x18\x03 \x01(\t\")\n\x0eRequestSuccess\x12\x17\n\x0freceivedRequest\x18\x01 \x01(\x08\"/\n\tUserLogin\x12\x10\n\x08userName\x18\x01 \x01(\t\x12\x10\n\x08password\x18\x02 \x01(\t\"\x07\n\x05\x45mpty2\xca\x02\n\x0c\x43hatMessages\x12-\n\nChatStream\x12\n.grpc.User\x1a\x11.grpc.ChatMessage0\x01\x12\x36\n\x0bSendMessage\x12\x11.grpc.ChatMessage\x1a\x14.grpc.RequestSuccess\x12-\n\x13SendUserInformation\x12\n.grpc.User\x1a\n.grpc.User\x12=\n\x14SendUserRegistration\x12\x0f.grpc.UserLogin\x1a\x14.grpc.RequestSuccess\x12\x37\n\x0e\x43heckUserLogin\x12\x0f.grpc.UserLogin\x1a\x14.grpc.RequestSuccess\x12,\n\rGetKnownUsers\x12\n.grpc.User\x1a\x0f.grpc.UserArrayb\x06proto3'
   ,
   dependencies=[google_dot_protobuf_dot_timestamp__pb2.DESCRIPTOR,])
 
@@ -101,6 +101,38 @@ _USER = _descriptor.Descriptor(
 )
 
 
+_USERARRAY = _descriptor.Descriptor(
+  name='UserArray',
+  full_name='grpc.UserArray',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='user', full_name='grpc.UserArray.user', index=0,
+      number=1, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=236,
+  serialized_end=273,
+)
+
+
 _CHATMESSAGE = _descriptor.Descriptor(
   name='ChatMessage',
   full_name='grpc.ChatMessage',
@@ -142,8 +174,8 @@ _CHATMESSAGE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=236,
-  serialized_end=309,
+  serialized_start=275,
+  serialized_end=348,
 )
 
 
@@ -174,8 +206,8 @@ _REQUESTSUCCESS = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=311,
-  serialized_end=352,
+  serialized_start=350,
+  serialized_end=391,
 )
 
 
@@ -213,8 +245,8 @@ _USERLOGIN = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=354,
-  serialized_end=401,
+  serialized_start=393,
+  serialized_end=440,
 )
 
 
@@ -238,12 +270,14 @@ _EMPTY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=403,
-  serialized_end=410,
+  serialized_start=442,
+  serialized_end=449,
 )
 
 _USER.fields_by_name['signUpDate'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
+_USERARRAY.fields_by_name['user'].message_type = _USER
 DESCRIPTOR.message_types_by_name['User'] = _USER
+DESCRIPTOR.message_types_by_name['UserArray'] = _USERARRAY
 DESCRIPTOR.message_types_by_name['ChatMessage'] = _CHATMESSAGE
 DESCRIPTOR.message_types_by_name['RequestSuccess'] = _REQUESTSUCCESS
 DESCRIPTOR.message_types_by_name['UserLogin'] = _USERLOGIN
@@ -256,6 +290,13 @@ User = _reflection.GeneratedProtocolMessageType('User', (_message.Message,), {
   # @@protoc_insertion_point(class_scope:grpc.User)
   })
 _sym_db.RegisterMessage(User)
+
+UserArray = _reflection.GeneratedProtocolMessageType('UserArray', (_message.Message,), {
+  'DESCRIPTOR' : _USERARRAY,
+  '__module__' : 'chat_message_pb2'
+  # @@protoc_insertion_point(class_scope:grpc.UserArray)
+  })
+_sym_db.RegisterMessage(UserArray)
 
 ChatMessage = _reflection.GeneratedProtocolMessageType('ChatMessage', (_message.Message,), {
   'DESCRIPTOR' : _CHATMESSAGE,
@@ -294,8 +335,8 @@ _CHATMESSAGES = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=413,
-  serialized_end=697,
+  serialized_start=452,
+  serialized_end=782,
   methods=[
   _descriptor.MethodDescriptor(
     name='ChatStream',
@@ -344,6 +385,16 @@ _CHATMESSAGES = _descriptor.ServiceDescriptor(
     containing_service=None,
     input_type=_USERLOGIN,
     output_type=_REQUESTSUCCESS,
+    serialized_options=None,
+    create_key=_descriptor._internal_create_key,
+  ),
+  _descriptor.MethodDescriptor(
+    name='GetKnownUsers',
+    full_name='grpc.ChatMessages.GetKnownUsers',
+    index=5,
+    containing_service=None,
+    input_type=_USER,
+    output_type=_USERARRAY,
     serialized_options=None,
     create_key=_descriptor._internal_create_key,
   ),

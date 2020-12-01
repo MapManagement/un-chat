@@ -49,8 +49,7 @@ class DBConnector:
         user_picture = new_user.profilePictureDir
 
         prepared_statements_insert = (user_name, user_status, user_biography, user_picture, user_id)
-        test = self.cursor.execute(sql_statement_insert, prepared_statements_insert)
-        print(test)
+        self.cursor.execute(sql_statement_insert, prepared_statements_insert)
 
         user = self.get_user_by_id(user_id)
         return user
@@ -160,3 +159,18 @@ class DBConnector:
                                       "FOREIGN KEY (sender_id) REFERENCES Users(user_id)" \
                                       ")".format(table_name)
         self.cursor.execute(sql_statement_history_table)
+
+    def get_known_users(self, user: chat.User):
+        sql_statement_chats = "SELECT * FROM Chats WHERE sender_id = %s"
+        prepared_statements_chats = (int(user.userID),)
+        db_query_chats = self.cursor.execute(sql_statement_chats, prepared_statements_chats)
+        known_chats = db_query_chats.fetchall()
+
+        users = []
+        sql_statement_users = "SELECT * FROM Users WHERE user_id = %s"
+        for known_chat in known_chats:
+            prepared_statements_users = (int(known_chat[2]),)
+            db_query_user = self.cursor.execute(sql_statement_users, prepared_statements_users)
+            known_user = db_query_user.fetchone()
+            users.append(known_user)
+        return users
