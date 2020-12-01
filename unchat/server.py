@@ -38,17 +38,16 @@ class ChatServer(rpc.ChatMessagesServicer):
         try:
             database_user = self.db_connection.get_user_by_name(request.userName)
             if request.isUserUpdate:
-                proto_user_information = self.db_connection.update_user(request)
-            else:
-                timestamp_object = Timestamp(seconds=int(database_user[3].timestamp()))
-                proto_user_information = chat.User(
-                    userID=str(database_user[0]),
-                    userName=database_user[1],
-                    signUpDate=timestamp_object,
-                    status=database_user[4],
-                    biography=database_user[5],
-                    profilePictureDir=database_user[6]
-                )
+                database_user = self.db_connection.update_user(request)
+            timestamp_object = Timestamp(seconds=int(database_user[3].timestamp()))
+            proto_user_information = chat.User(
+                userID=str(database_user[0]),
+                userName=database_user[1],
+                signUpDate=timestamp_object,
+                status=database_user[4],
+                biography=database_user[5],
+                profilePictureDir=database_user[6]
+            )
             return proto_user_information
         except Exception as ex:
             print(ex)
@@ -67,6 +66,21 @@ class ChatServer(rpc.ChatMessagesServicer):
         user = chat.UserLogin(userName=user_name, password=user_password)
         success = self.db_connection.insert_user(user)
         return chat.RequestSuccess(receivedRequest=success)
+
+    def GetKnownUsers(self, request, context):
+        users = chat.UserArray()
+        tuple_users = self.db_connection.get_known_users(request)
+        for user in tuple_users:
+            timestamp_object = Timestamp(seconds=int(user[3].timestamp()))
+            new_user = chat.User(
+                userID=str(user[0]),
+                userName=user[1],
+                signUpDate=timestamp_object,
+                status=user[4],
+                profilePictureDir="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fdevblogs.microsoft.com%2Fvisualstudio%2Fwp-content%2Fuploads%2Fsites%2F4%2F2019%2F01%2Fvisualstudio-1.png"
+            )
+            users.user.append(new_user)
+        return users
 
 
 if __name__ == "__main__":
