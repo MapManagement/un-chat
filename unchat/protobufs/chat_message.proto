@@ -32,6 +32,7 @@ message ChatMessage {
     string senderID = 1;
     string recipientID = 2;
     string messageText = 3;
+    string userName = 4;
 }
 
 message RequestSuccess {

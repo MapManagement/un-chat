@@ -134,7 +134,10 @@ class DBConnector:
         sender_id = message.senderID
         recipient_id = message.recipientID
         message_text = message.messageText
-        chat_history_table_name = f"History{sender_id}_{recipient_id}"
+        if int(sender_id) < int(recipient_id):
+            chat_history_table_name = f"History{sender_id}_{recipient_id}"
+        else:
+            chat_history_table_name = f"History{recipient_id}_{sender_id}"
 
         sql_statement_chat_name = "SELECT chat_history_table FROM Chats WHERE (sender_id = %s AND recipient_id = %s)" \
                                   "OR (sender_id = %s AND recipient_id = %s)"
