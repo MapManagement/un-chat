@@ -77,6 +77,7 @@ class ChatServer(rpc.ChatMessagesServicer):
                 userName=user[1],
                 signUpDate=timestamp_object,
                 status=user[4],
+                biography=user[5],
                 profilePictureDir="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fdevblogs.microsoft.com%2Fvisualstudio%2Fwp-content%2Fuploads%2Fsites%2F4%2F2019%2F01%2Fvisualstudio-1.png"
             )
             users.user.append(new_user)
