@@ -37,15 +37,18 @@ class ChatServer(rpc.ChatMessagesServicer):
         print(f"New Login: {request}\n")
         try:
             database_user = self.db_connection.get_user_by_name(request.userName)
-            timestamp_object = Timestamp(seconds=int(database_user[3].timestamp()))
-            proto_user_information = chat.User(
-                userID=str(database_user[0]),
-                userName=database_user[1],
-                signUpDate=timestamp_object,
-                status=database_user[4],
-                biography=database_user[5],
-                profilePictureDir=database_user[6]
-            )
+            if request.isUserUpdate:
+                proto_user_information = self.db_connection.update_user(request)
+            else:
+                timestamp_object = Timestamp(seconds=int(database_user[3].timestamp()))
+                proto_user_information = chat.User(
+                    userID=str(database_user[0]),
+                    userName=database_user[1],
+                    signUpDate=timestamp_object,
+                    status=database_user[4],
+                    biography=database_user[5],
+                    profilePictureDir=database_user[6]
+                )
             return proto_user_information
         except Exception as ex:
             print(ex)

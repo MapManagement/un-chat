@@ -38,6 +38,23 @@ class DBConnector:
         except Exception:
             return False
 
+    def update_user(self, new_user: chat.User):
+        sql_statement_insert = "UPDATE Users SET user_name = %s, status = %s, biography = %s, " \
+                               "path_profile_picture = %s WHERE user_id = %s"
+
+        user_id = new_user.userID
+        user_name = new_user.userName
+        user_status = new_user.status
+        user_biography = new_user.biography
+        user_picture = new_user.profilePictureDir
+
+        prepared_statements_insert = (user_name, user_status, user_biography, user_picture, user_id)
+        test = self.cursor.execute(sql_statement_insert, prepared_statements_insert)
+        print(test)
+
+        user = self.get_user_by_id(user_id)
+        return user
+
     def get_password_by_user_id(self, user_id: int):
         sql_statement = "SELECT password FROM Users WHERE user_id = %s"
         prepared_statements = (int(user_id),)
