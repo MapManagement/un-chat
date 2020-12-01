@@ -20,7 +20,7 @@ message User {
     string status = 4;
     string biography = 5;
     string profilePictureDir = 6;
-
+    bool isUserUpdate = 7;
 }
 
 message ChatMessage {
