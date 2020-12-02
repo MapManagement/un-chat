@@ -84,11 +84,21 @@ class ChatServer(rpc.ChatMessagesServicer):
         return users
 
 
+def get_server_credentials():
+    with open("../server-key.pem", "rb") as file_key:
+        private_key = file_key.read()
+    with open("../server.pem", "rb") as file_cert:
+        certificate = file_cert.read()
+    credentials = grpc.ssl_server_credentials(((private_key, certificate),))
+    return credentials
+
+
 if __name__ == "__main__":
     print("Starting chat server...\n")
     port = 32002
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=8))
     rpc.add_ChatMessagesServicer_to_server(ChatServer(), server)
-    server.add_insecure_port(f'[::]:{port}')
+    # server.add_secure_port(f'0.0.0.0:{port}', get_server_credentials())
+    server.add_insecure_port(f'0.0.0.0:{port}')
     server.start()
     server.wait_for_termination()

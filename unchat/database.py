@@ -26,14 +26,13 @@ class DBConnector:
 
     def insert_user(self, user: chat.UserLogin) -> bool:
         sql_statement = "INSERT INTO Users (user_name, password) VALUES (%s, %s)"
-        # user_id
         user_name = user.userName
         password = self.hash_password(user.password)
         # rest is default or set later on
 
         prepared_statements = (user_name, password)
         try:
-            test = self.cursor.execute(sql_statement, prepared_statements)
+            self.cursor.execute(sql_statement, prepared_statements)
             return True
         except Exception:
             return False
