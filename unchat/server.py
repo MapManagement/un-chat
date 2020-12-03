@@ -83,6 +83,18 @@ class ChatServer(rpc.ChatMessagesServicer):
             users.user.append(new_user)
         return users
 
+    def LoadOldMessages(self, request, context):
+        messages = self.db_connection.get_old_message_by_user_id(request)
+        for message in messages:
+            user_name = self.db_connection.get_user_by_id(message[1])[1]
+            chat_message = chat.ChatMessage(
+                senderID=str(message[1]),
+
+                messageText=message[2],
+                userName=user_name
+            )
+            yield chat_message
+
 
 def get_server_credentials():
     with open("../server-key.pem", "rb") as file_key:

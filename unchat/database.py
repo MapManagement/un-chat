@@ -176,3 +176,17 @@ class DBConnector:
             known_user = db_query_user.fetchone()
             users.append(known_user)
         return users
+
+    def get_old_message_by_user_id(self, user_chat: chat.Chat):
+        sender_id = user_chat.senderID
+        recipient_id = user_chat.recipientID
+
+        if int(sender_id) < int(recipient_id):
+            chat_history_table_name = f"History{sender_id}_{recipient_id}"
+        else:
+            chat_history_table_name = f"History{recipient_id}_{sender_id}"
+
+        sql_statement = f"SELECT * FROM {chat_history_table_name}"
+        db_query = self.cursor.execute(sql_statement)
+        old_messages = db_query.fetchall()
+        return old_messages
