@@ -19,18 +19,19 @@ class ChatServer(rpc.ChatMessagesServicer):
     def SendMessage(self, request, context):
         print(f"Incoming Message {request} \n")
         self.chats.append(request)
+        self.db_connection.insert_new_message(request)
         return chat.RequestSuccess(receivedRequest=True)
 
     def ChatStream(self, request, context):
         last_index = 0
         while True:
             while len(self.chats) > last_index:
+                print(self.chats)
                 message = self.chats[last_index]
                 last_index += 1
                 print(f"M: {message}")
                 print(f"R: {request}")
                 if message.recipientID == request.userID or message.senderID == request.userID:
-                    self.db_connection.insert_new_message(message)
                     yield message
 
     def SendUserInformation(self, request, context):
@@ -84,7 +85,7 @@ class ChatServer(rpc.ChatMessagesServicer):
         return users
 
     def LoadOldMessages(self, request, context):
-        messages = self.db_connection.get_old_message_by_user_id(request)
+        messages = self.db_connection.get_old_messages_by_user_id(request)
         for message in messages:
             user_name = self.db_connection.get_user_by_id(message[1])[1]
             chat_message = chat.ChatMessage(
