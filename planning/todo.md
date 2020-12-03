@@ -6,6 +6,6 @@
 | understanding proto files   |      |            |  X   |        |
 | handling incoming requests  |      |            |  X   |        |
 | forwarding messages         |      |            |  X   |        |
-| handling multiple chats     |      |      X     |      |        |
+| handling multiple chats     |      |            |  X   |        |
 | encryption(SSL)             |      |      X     |      |        |
 | sending pictures            |      |      X     |      |        |

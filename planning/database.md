@@ -10,15 +10,15 @@ be done by the server instance and the provided data added to the database. Furt
 are now able as long as the user still knows the password and his user name.  
 Following table shows the database structure:
 
-| Column Name             | Data Type    | Key | Not Null | Default* |
-|:-----------------------:|:------------:|:---:|:--------:|:--------:|
-| user_id                 | MEDIUMINT    | PK  | Yes      | No       |
-| user_name               | VARCHAR(32)  |     | Yes      | No       |
-| password                | VARCHAR(64)  |     | Yes      | No       |
-| created_at              | DATETIME     |     | Yes      | Yes      |
-| status                  | VARCHAR(32)  |     | No       | Yes      |
-| biography               | VARCHAR(128) |     | No       | No       |
-| path_profile_picture    | VARCHAR(256) |     | Yes      | Yes      |
+| Column Name             | Data Type    | Key | Not Null | Default* | Unique |
+|:-----------------------:|:------------:|:---:|:--------:|:--------:|:------:|
+| user_id                 | MEDIUMINT    | PK  | Yes      | No       | Yes    |
+| user_name               | VARCHAR(32)  |     | Yes      | No       | Yes    |
+| password                | VARCHAR(64)  |     | Yes      | No       | No     |
+| created_at              | DATETIME     |     | Yes      | Yes      | No     |
+| status                  | VARCHAR(32)  |     | No       | Yes      | No     |
+| biography               | VARCHAR(128) |     | No       | No       | No     |
+| path_profile_picture    | VARCHAR(256) |     | Yes      | Yes      | No     |
 
 *Default means following values:  
 - CreatedAt: Datetime when clicking on submit button
