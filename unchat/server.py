@@ -79,7 +79,7 @@ class ChatServer(rpc.ChatMessagesServicer):
                 signUpDate=timestamp_object,
                 status=user[4],
                 biography=user[5],
-                profilePictureDir="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fdevblogs.microsoft.com%2Fvisualstudio%2Fwp-content%2Fuploads%2Fsites%2F4%2F2019%2F01%2Fvisualstudio-1.png"
+                profilePictureDir="pack://application:,,,/client-application/Resources/default_profile_picture.png"
             )
             users.user.append(new_user)
         return users
@@ -111,7 +111,7 @@ if __name__ == "__main__":
     port = 32002
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=8))
     rpc.add_ChatMessagesServicer_to_server(ChatServer(), server)
-    # server.add_secure_port(f'0.0.0.0:{port}', get_server_credentials())
-    server.add_insecure_port(f'0.0.0.0:{port}')
+    server.add_secure_port(f'0.0.0.0:{port}', get_server_credentials())
+    # server.add_insecure_port(f'0.0.0.0:{port}')
     server.start()
     server.wait_for_termination()
