@@ -12,6 +12,7 @@ service ChatMessages {
     rpc SendUserRegistration(UserLogin) returns (RequestSuccess);
     rpc CheckUserLogin(UserLogin) returns (RequestSuccess);
     rpc GetKnownUsers(User) returns (UserArray);
+    rpc LoadOldMessages(Chat) returns(stream ChatMessage);
 }
 
 message User {
@@ -42,6 +43,11 @@ message RequestSuccess {
 message UserLogin {
     string userName = 1;
     string password = 2;
+}
+
+message Chat {
+    string senderID = 1;
+    string recipientID = 2;
 }
 
 message Empty { }
