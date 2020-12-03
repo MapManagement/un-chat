@@ -177,7 +177,7 @@ class DBConnector:
             users.append(known_user)
         return users
 
-    def get_old_message_by_user_id(self, user_chat: chat.Chat):
+    def get_old_messages_by_user_id(self, user_chat: chat.Chat):
         sender_id = user_chat.senderID
         recipient_id = user_chat.recipientID
 
