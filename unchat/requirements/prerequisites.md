@@ -1,6 +1,6 @@
 # Prerequisites
 Before you can start using un-chat-server, you have make sure that following things are done:
-- [ ] creating MySQL database with necessary tables and fields
+- [ ] creating MySQL database with necessary tables and fields ([here](create_db.py))
 - [ ] enabling database connections
 - [ ] choosing port for client and server
 - [ ] setting IPs the server is listening to
