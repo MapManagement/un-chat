@@ -88,11 +88,13 @@ class ChatServer(rpc.ChatMessagesServicer):
         messages = self.db_connection.get_old_messages_by_user_id(request)
         for message in messages:
             user_name = self.db_connection.get_user_by_id(message[1])[1]
+            timestamp_object = Timestamp(seconds=int(message[3].timestamp()))
             chat_message = chat.ChatMessage(
                 senderID=str(message[1]),
 
                 messageText=message[2],
-                userName=user_name
+                userName=user_name,
+                sentAt=timestamp_object
             )
             yield chat_message
 

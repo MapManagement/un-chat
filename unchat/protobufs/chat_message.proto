@@ -34,6 +34,7 @@ message ChatMessage {
     string recipientID = 2;
     string messageText = 3;
     string userName = 4;
+    google.protobuf.Timestamp sentAt = 5;
 }
 
 message RequestSuccess {
