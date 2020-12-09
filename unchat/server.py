@@ -55,6 +55,7 @@ class ChatServer(rpc.ChatMessagesServicer):
             return chat.User()
 
     def CheckUserLogin(self, request, context):
+        print(f"CheckLogin: {context.peer()}")
         user_password = str(request.password)
 
         passwords_equal = self.db_connection.compare_passwords(user_password, request.userName)
@@ -86,6 +87,7 @@ class ChatServer(rpc.ChatMessagesServicer):
 
     def LoadOldMessages(self, request, context):
         messages = self.db_connection.get_old_messages_by_user_id(request)
+        i = 0
         for message in messages:
             user_name = self.db_connection.get_user_by_id(message[1])[1]
             timestamp_object = Timestamp(seconds=int(message[3].timestamp()))
@@ -97,6 +99,12 @@ class ChatServer(rpc.ChatMessagesServicer):
                 sentAt=timestamp_object
             )
             yield chat_message
+
+            if i == len(messages)-1 or len(messages) == 0:
+                if context.is_active():
+                    context.cancel()
+                    return
+            i += 1
 
 
 def get_server_credentials():
