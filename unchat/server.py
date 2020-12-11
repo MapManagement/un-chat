@@ -24,7 +24,8 @@ class ChatServer(rpc.ChatMessagesServicer):
 
     def ChatStream(self, request, context):
         last_index = 0
-        while True:
+        self.record_callback(self, context)
+        while context.is_active():
             while len(self.chats) > last_index:
                 print(self.chats)
                 message = self.chats[last_index]
@@ -100,11 +101,19 @@ class ChatServer(rpc.ChatMessagesServicer):
             )
             yield chat_message
 
-            if i == len(messages)-1 or len(messages) == 0:
+            if i == len(messages) - 1 or len(messages) == 0:
                 if context.is_active():
                     context.cancel()
                     return
             i += 1
+
+    @staticmethod
+    def record_callback(self, context):
+        def record_disconnect():
+            print("Cancelled!")
+            context.cancel()
+
+        context.add_callback(record_disconnect)
 
 
 def get_server_credentials():
