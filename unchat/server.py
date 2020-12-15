@@ -24,7 +24,6 @@ class ChatServer(rpc.ChatMessagesServicer):
 
     def ChatStream(self, request, context):
         last_index = 0
-        self.record_callback(self, context)
         while context.is_active():
             while len(self.chats) > last_index:
                 print(self.chats)
@@ -81,14 +80,13 @@ class ChatServer(rpc.ChatMessagesServicer):
                 signUpDate=timestamp_object,
                 status=user[4],
                 biography=user[5],
-                profilePictureDir="pack://application:,,,/client-application/Resources/default_profile_picture.png"
+                profilePictureDir=user[6]
             )
             users.user.append(new_user)
         return users
 
     def LoadOldMessages(self, request, context):
         messages = self.db_connection.get_old_messages_by_user_id(request)
-        i = 0
         for message in messages:
             user_name = self.db_connection.get_user_by_id(message[1])[1]
             timestamp_object = Timestamp(seconds=int(message[3].timestamp()))
@@ -100,20 +98,6 @@ class ChatServer(rpc.ChatMessagesServicer):
                 sentAt=timestamp_object
             )
             yield chat_message
-
-            if i == len(messages) - 1 or len(messages) == 0:
-                if context.is_active():
-                    context.cancel()
-                    return
-            i += 1
-
-    @staticmethod
-    def record_callback(self, context):
-        def record_disconnect():
-            print("Cancelled!")
-            context.cancel()
-
-        context.add_callback(record_disconnect)
 
 
 def get_server_credentials():
