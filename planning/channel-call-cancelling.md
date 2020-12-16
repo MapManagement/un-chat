@@ -21,3 +21,17 @@ resources and therefore a good concept of closing unnecessary channels and strea
 opened channel (``ShutdownAsync``)
 6. server should now close all corresponding streams and the corresponding channel  
 **eventually frees resources**
+
+## Problem
+I found a way, although it is probably not recommended to do so, to "access" a cancellation while the
+message stream runs. I simply just send a message with a specific ``senderID`` and ``recipientID``. Of course,
+no other user has or can get his ID. The server is now able to check every incoming request on the basis of
+those IDs and once the set "cancellation ID" comes in, the server can close/cancel the stream. If it was that
+easy, I already would be working on other things but unfortunately I am not. On one hand, I always cancel
+not only the connection to the logged out client, no, I will destroy the whole message stream. Every
+connected client will not receive new responses as soon as one client logged out, since I either ``return``
+the function or I ``context.cancel()`` all streams (found a fix while writing this :D). On the other hand,
+the thread is still running after I did one of the previously explained methods, even though the thread only
+starts running whenever I open a new message stream. The possibilities are, that I still do not close the
+stream properly or there is another thread that has to be finished which I do not know yet. More tests and
+researches will hopefully bring light into the darkness.

@@ -19,15 +19,19 @@ class ChatServer(rpc.ChatMessagesServicer):
     def SendMessage(self, request, context):
         print(f"Incoming Message {request} \n")
         self.chats.append(request)
-        self.db_connection.insert_new_message(request)
+        if request.recipientID != "-3":
+            self.db_connection.insert_new_message(request)
         return chat.RequestSuccess(receivedRequest=True)
 
     def ChatStream(self, request, context):
         last_index = 0
+        self.chats = []
         while context.is_active():
             while len(self.chats) > last_index:
                 print(self.chats)
                 message = self.chats[last_index]
+                if message.senderID == request.userID and message.recipientID == "-3":
+                    return
                 last_index += 1
                 print(f"M: {message}")
                 print(f"R: {request}")
