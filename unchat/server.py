@@ -91,6 +91,8 @@ class ChatServer(rpc.ChatMessagesServicer):
 
     def LoadOldMessages(self, request, context):
         messages = self.db_connection.get_old_messages_by_user_id(request)
+        if messages is None:
+            return
         for message in messages:
             user_name = self.db_connection.get_user_by_id(message[1])[1]
             timestamp_object = Timestamp(seconds=int(message[3].timestamp()))
