@@ -15,13 +15,12 @@ Following table shows the database structure:
 | user_id                 | MEDIUMINT    | PK  | Yes      | No       | Yes    |
 | user_name               | VARCHAR(32)  |     | Yes      | No       | Yes    |
 | password                | VARCHAR(64)  |     | Yes      | No       | No     |
-| created_at              | DATETIME     |     | Yes      | Yes      | No     |
+| created_at              | DATETIME     |     | Yes      | No       | No     |
 | status                  | VARCHAR(32)  |     | No       | Yes      | No     |
 | biography               | VARCHAR(128) |     | No       | No       | No     |
 | path_profile_picture    | VARCHAR(256) |     | Yes      | Yes      | No     |
 
 *Default means following values:  
-- CreatedAt: Datetime when clicking on submit button
 - Status: Something like "Using UnChat"
 - PathProfilePicture: Path to default profile picture
 
@@ -38,7 +37,7 @@ The whole chat also receives a ``chat_id``.
 | chat_id               | MEDIUMINT     | PK  | Yes      | Yes      |
 | sender_id             | MEDIUMINT     | FK  | Yes      | No       |
 | recipient_id          | MEDIUMINT     | FK  | Yes      | No       |
-| last_message_datetime | DATETIME      |     | Yes      | Yes      |
+| last_message_datetime | DATETIME      |     | Yes      | No       |
 | chat_history_table    | VARCHAR(127)  |     | Yes      | No       |
 
 ## "ChatHistories" Table
@@ -53,4 +52,4 @@ encryption to increase the security. Probably, the table will look like this:
 | message_id    | MEDIUMINT    | PK  | Yes      | Yes      |
 | sender_id     | MEDIUMINT    | FK  | Yes      | No       |
 | message_text  | VARCHAR(511) | No  | Yes      | No       |
-| sent_datetime | DATETIME     | No  | Yes      | Yes      |
+| sent_datetime | DATETIME     | No  | Yes      | No       |

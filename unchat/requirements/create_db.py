@@ -20,14 +20,13 @@ def create_users_table():
                     "user_id MEDIUMINT(9) NOT NULL AUTO_INCREMENT," \
                     "user_name VARCHAR(32) NOT NULL," \
                     "password VARCHAR(255) NOT NULL," \
-                    "created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP()," \
+                    "created_at DATETIME NOT NULL," \
                     "status VARCHAR(32) DEFAULT 'Using UnChat'," \
                     "biography VARCHAR(128)," \
-                    "path_profile_picture VARCHAR(256) NOT NULL DEFAULT 'pack://application:,,,/client-application/Resources/default_profile_picture.png'" \
-                    ")" \
+                    "path_profile_picture VARCHAR(256) NOT NULL DEFAULT 'UnChat.png'," \
                     "PRIMARY KEY (user_id)," \
-                    "UNIQUE (user_name)," \
-                    ""
+                    "UNIQUE (user_name)" \
+                    ")"
     cursor.execute(sql_statement)
     print("Created Users table successfully!")
 
@@ -38,12 +37,12 @@ def create_chats_table():
                     "chat_id MEDIUMINT(9) NOT NULL AUTO_INCREMENT," \
                     "sender_id MEDIUMINT(9) NOT NULL," \
                     "recipient_id MEDIUMINT(9) NOT NULL," \
-                    "last_message_datetime DATETIME NOT NULL CURRENT_TIMESTAMP()," \
-                    "chat_history_table VARCHAR(127) NOT NULL" \
-                    ")" \
+                    "last_message_datetime DATETIME NOT NULL," \
+                    "chat_history_table VARCHAR(127) NOT NULL," \
                     "PRIMARY KEY (chat_id)," \
                     "FOREIGN KEY (sender_id) REFERENCES Users(user_id)," \
-                    "FOREIGN KEY (recipient_id) REFERENCES Users(user_id)"
+                    "FOREIGN KEY (recipient_id) REFERENCES Users(user_id)" \
+                    ")"
     cursor.execute(sql_statement)
     print("Created Chats table successfully!")
 
@@ -53,9 +52,13 @@ def create_histories_table():
                     "message_id MEDIUMINT(9) NOT NULL AUTO_INCREMENT," \
                     "sender_id MEDIUMINT(9) NOT NULL," \
                     "message_text VARCHAR(511) NOT NULL," \
-                    "sent_datetime DATETIME NOT NULL CURRENT_TIMESTAMP()," \
-                    ")" \
+                    "sent_datetime DATETIME NOT NULL," \
                     "PRIMARY KEY (message_id)," \
-                    "FOREIGN KEY (sender_id) REFERENCES Users(user_id)"
+                    "FOREIGN KEY (sender_id) REFERENCES Users(user_id)" \
+                    ")"
     cursor.execute(sql_statement)
     print("Created ChatHistories table (blueprint) successfully!")
+
+
+if __name__ == '__main__':
+    main()
