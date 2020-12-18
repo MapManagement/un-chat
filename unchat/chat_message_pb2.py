@@ -20,7 +20,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\x12\x63hat_message.proto\x12\x04grpc\x1a\x1fgoogle/protobuf/timestamp.proto\"\xac\x01\n\x04User\x12\x0e\n\x06userID\x18\x01 \x01(\t\x12\x10\n\x08userName\x18\x02 \x01(\t\x12.\n\nsignUpDate\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x0e\n\x06status\x18\x04 \x01(\t\x12\x11\n\tbiography\x18\x05 \x01(\t\x12\x19\n\x11profilePictureDir\x18\x06 \x01(\t\x12\x14\n\x0cisUserUpdate\x18\x07 \x01(\x08\"%\n\tUserArray\x12\x18\n\x04user\x18\x01 \x03(\x0b\x32\n.grpc.User\"\x87\x01\n\x0b\x43hatMessage\x12\x10\n\x08senderID\x18\x01 \x01(\t\x12\x13\n\x0brecipientID\x18\x02 \x01(\t\x12\x13\n\x0bmessageText\x18\x03 \x01(\t\x12\x10\n\x08userName\x18\x04 \x01(\t\x12*\n\x06sentAt\x18\x05 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\")\n\x0eRequestSuccess\x12\x17\n\x0freceivedRequest\x18\x01 \x01(\x08\"/\n\tUserLogin\x12\x10\n\x08userName\x18\x01 \x01(\t\x12\x10\n\x08password\x18\x02 \x01(\t\"-\n\x04\x43hat\x12\x10\n\x08senderID\x18\x01 \x01(\t\x12\x13\n\x0brecipientID\x18\x02 \x01(\t\"\x07\n\x05\x45mpty2\xfe\x02\n\x0c\x43hatMessages\x12-\n\nChatStream\x12\n.grpc.User\x1a\x11.grpc.ChatMessage0\x01\x12\x36\n\x0bSendMessage\x12\x11.grpc.ChatMessage\x1a\x14.grpc.RequestSuccess\x12-\n\x13SendUserInformation\x12\n.grpc.User\x1a\n.grpc.User\x12=\n\x14SendUserRegistration\x12\x0f.grpc.UserLogin\x1a\x14.grpc.RequestSuccess\x12\x37\n\x0e\x43heckUserLogin\x12\x0f.grpc.UserLogin\x1a\x14.grpc.RequestSuccess\x12,\n\rGetKnownUsers\x12\n.grpc.User\x1a\x0f.grpc.UserArray\x12\x32\n\x0fLoadOldMessages\x12\n.grpc.Chat\x1a\x11.grpc.ChatMessage0\x01\x62\x06proto3'
+  serialized_pb=b'\n\x12\x63hat_message.proto\x12\x04grpc\x1a\x1fgoogle/protobuf/timestamp.proto\"\xac\x01\n\x04User\x12\x0e\n\x06userID\x18\x01 \x01(\t\x12\x10\n\x08userName\x18\x02 \x01(\t\x12.\n\nsignUpDate\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x0e\n\x06status\x18\x04 \x01(\t\x12\x11\n\tbiography\x18\x05 \x01(\t\x12\x19\n\x11profilePictureDir\x18\x06 \x01(\t\x12\x14\n\x0cisUserUpdate\x18\x07 \x01(\x08\"%\n\tUserArray\x12\x18\n\x04user\x18\x01 \x03(\x0b\x32\n.grpc.User\"\x87\x01\n\x0b\x43hatMessage\x12\x10\n\x08senderID\x18\x01 \x01(\t\x12\x13\n\x0brecipientID\x18\x02 \x01(\t\x12\x13\n\x0bmessageText\x18\x03 \x01(\t\x12\x10\n\x08userName\x18\x04 \x01(\t\x12*\n\x06sentAt\x18\x05 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\")\n\x0eRequestSuccess\x12\x17\n\x0freceivedRequest\x18\x01 \x01(\x08\"/\n\tUserLogin\x12\x10\n\x08userName\x18\x01 \x01(\t\x12\x10\n\x08password\x18\x02 \x01(\t\"-\n\x04\x43hat\x12\x10\n\x08senderID\x18\x01 \x01(\t\x12\x13\n\x0brecipientID\x18\x02 \x01(\t\"\x07\n\x05\x45mpty2\xb6\x03\n\x0c\x43hatMessages\x12-\n\nChatStream\x12\n.grpc.User\x1a\x11.grpc.ChatMessage0\x01\x12\x36\n\x0bSendMessage\x12\x11.grpc.ChatMessage\x1a\x14.grpc.RequestSuccess\x12-\n\x13SendUserInformation\x12\n.grpc.User\x1a\n.grpc.User\x12=\n\x14SendUserRegistration\x12\x0f.grpc.UserLogin\x1a\x14.grpc.RequestSuccess\x12\x37\n\x0e\x43heckUserLogin\x12\x0f.grpc.UserLogin\x1a\x14.grpc.RequestSuccess\x12,\n\rGetKnownUsers\x12\n.grpc.User\x1a\x0f.grpc.UserArray\x12\x32\n\x0fLoadOldMessages\x12\n.grpc.Chat\x1a\x11.grpc.ChatMessage0\x01\x12\x36\n\rDeleteProfile\x12\x0f.grpc.UserLogin\x1a\x14.grpc.RequestSuccessb\x06proto3'
   ,
   dependencies=[google_dot_protobuf_dot_timestamp__pb2.DESCRIPTOR,])
 
@@ -398,7 +398,7 @@ _CHATMESSAGES = _descriptor.ServiceDescriptor(
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
   serialized_start=562,
-  serialized_end=944,
+  serialized_end=1000,
   methods=[
   _descriptor.MethodDescriptor(
     name='ChatStream',
@@ -467,6 +467,16 @@ _CHATMESSAGES = _descriptor.ServiceDescriptor(
     containing_service=None,
     input_type=_CHAT,
     output_type=_CHATMESSAGE,
+    serialized_options=None,
+    create_key=_descriptor._internal_create_key,
+  ),
+  _descriptor.MethodDescriptor(
+    name='DeleteProfile',
+    full_name='grpc.ChatMessages.DeleteProfile',
+    index=7,
+    containing_service=None,
+    input_type=_USERLOGIN,
+    output_type=_REQUESTSUCCESS,
     serialized_options=None,
     create_key=_descriptor._internal_create_key,
   ),
