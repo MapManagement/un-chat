@@ -13,6 +13,7 @@ service ChatMessages {
     rpc CheckUserLogin(UserLogin) returns (RequestSuccess);
     rpc GetKnownUsers(User) returns (UserArray);
     rpc LoadOldMessages(Chat) returns(stream ChatMessage);
+    rpc DeleteProfile(UserLogin) returns (RequestSuccess);
 }
 
 message User {
