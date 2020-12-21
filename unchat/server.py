@@ -105,6 +105,14 @@ class ChatServer(rpc.ChatMessagesServicer):
             )
             yield chat_message
 
+    def DeleteProfile(self, request, context):
+        user_password = str(request.password)
+
+        passwords_equal = self.db_connection.compare_passwords(user_password, request.userName)
+        if passwords_equal:
+            self.db_connection.delete_user(request)
+        return chat.RequestSuccess(receivedRequest=passwords_equal)
+
 
 def get_server_credentials():
     with open("../server-key.pem", "rb") as file_key:
