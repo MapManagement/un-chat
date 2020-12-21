@@ -55,6 +55,29 @@ class DBConnector:
         user = self.get_user_by_id(user_id)
         return user
 
+    def delete_user(self, user_login: chat.UserLogin):
+        user = self.get_user_by_name(user_login.userName)
+        user_id = int(user[0])
+        user_name = user[1]
+
+        sql_statement_history = "DROP TABLE "
+        chats = self.get_chats_by_user_id(user_id)
+        chat_tables = []
+        for chat in chats:
+            chat_name = chat[4]
+            if chat_name not in chat_tables:
+                chat_tables.append(chat_name)
+        for chat_table in chat_tables:
+            self.cursor.execute(sql_statement_history + chat_table)  # didn't find any better solution D:
+        
+        sql_statement_chats = "DELETE FROM Chats WHERE sender_id = %s or recipient_id = %s"
+        prepared_statements_chats = (user_id, user_id)
+        self.cursor.execute(sql_statement_chats, prepared_statements_chats)
+        
+        sql_statement_user = "DELETE FROM Users WHERE user_name = %s"
+        prepared_statements_user = (user_name,)
+        self.cursor.execute(sql_statement_user, prepared_statements_user)
+
     def get_password_by_user_id(self, user_id: int):
         sql_statement = "SELECT password FROM Users WHERE user_id = %s"
         prepared_statements = (int(user_id),)
@@ -88,19 +111,21 @@ class DBConnector:
         else:
             return False
 
-    def get_chats_by_sender_id(self, sender_id: int):
-        sql_statement = "SELECT * FROM Chats WHERE sender_id = %s"
-        prepared_statements = (int(sender_id),)
+    def get_chats_by_user_id(self, sender_id: int):
+        sql_statement = "SELECT * FROM Chats WHERE sender_id = %s or recipient_id = %s"
+        prepared_statements = (int(sender_id), int(sender_id))
         db_query = self.cursor.execute(sql_statement, prepared_statements)
         chats = db_query.fetchall()
-        print(chats)
         return chats
 
     def insert_chat(self, message: chat.ChatMessage):
         sender_id = message.senderID
         recipient_id = message.recipientID
         message_text = message.messageText
-        chat_history_table_name = f"History{sender_id}_{recipient_id}"
+        if int(sender_id) < int(recipient_id):
+            chat_history_table_name = f"History{sender_id}_{recipient_id}"
+        else:
+            chat_history_table_name = f"History{recipient_id}_{sender_id}"
         created_at = datetime.datetime.now() + datetime.timedelta(hours=1)
 
         # insert new chat into sender-recipient form
