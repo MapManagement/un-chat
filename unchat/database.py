@@ -64,7 +64,7 @@ class DBConnector:
         chats = self.get_chats_by_user_id(user_id)
         chat_tables = []
         for chat in chats:
-            chat_name = chat[4]
+            chat_name = chat[0]
             if chat_name not in chat_tables:
                 chat_tables.append(chat_name)
         for chat_table in chat_tables:
@@ -112,7 +112,7 @@ class DBConnector:
             return False
 
     def get_chats_by_user_id(self, sender_id: int):
-        sql_statement = "SELECT * FROM Chats WHERE sender_id = %s or recipient_id = %s"
+        sql_statement = "SELECT chat_history_table FROM Chats WHERE sender_id = %s or recipient_id = %s"
         prepared_statements = (int(sender_id), int(sender_id))
         db_query = self.cursor.execute(sql_statement, prepared_statements)
         chats = db_query.fetchall()
@@ -141,10 +141,6 @@ class DBConnector:
         self.cursor.execute(sql_statement_chat, prepared_statements_chat)
 
         self.create_new_history_table(chat_history_table_name)
-        sql_statement_history = f"INSERT INTO {chat_history_table_name} (sender_id, message_text, sent_datetime) " \
-                                f"VALUES (%s, %s, %s)"
-        prepared_statements_history = (int(sender_id), message_text, created_at)
-        self.cursor.execute(sql_statement_history, prepared_statements_history)
 
     def get_history_by_chat_id(self, chat_id: int):
         sql_statement_chat_name = "SELECT chat_history_table FROM Chats WHERE chat_id = %s"
