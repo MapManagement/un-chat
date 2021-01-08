@@ -54,6 +54,16 @@ class ChatMessagesStub(object):
                 request_serializer=chat__message__pb2.UserLogin.SerializeToString,
                 response_deserializer=chat__message__pb2.RequestSuccess.FromString,
                 )
+        self.GetSystemInformation = channel.unary_unary(
+                '/grpc.ChatMessages/GetSystemInformation',
+                request_serializer=chat__message__pb2.Empty.SerializeToString,
+                response_deserializer=chat__message__pb2.SystemInformation.FromString,
+                )
+        self.GetSystemMetrics = channel.unary_stream(
+                '/grpc.ChatMessages/GetSystemMetrics',
+                request_serializer=chat__message__pb2.Interval.SerializeToString,
+                response_deserializer=chat__message__pb2.Metrics.FromString,
+                )
 
 
 class ChatMessagesServicer(object):
@@ -108,6 +118,18 @@ class ChatMessagesServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def GetSystemInformation(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def GetSystemMetrics(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_ChatMessagesServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -150,6 +172,16 @@ def add_ChatMessagesServicer_to_server(servicer, server):
                     servicer.DeleteProfile,
                     request_deserializer=chat__message__pb2.UserLogin.FromString,
                     response_serializer=chat__message__pb2.RequestSuccess.SerializeToString,
+            ),
+            'GetSystemInformation': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetSystemInformation,
+                    request_deserializer=chat__message__pb2.Empty.FromString,
+                    response_serializer=chat__message__pb2.SystemInformation.SerializeToString,
+            ),
+            'GetSystemMetrics': grpc.unary_stream_rpc_method_handler(
+                    servicer.GetSystemMetrics,
+                    request_deserializer=chat__message__pb2.Interval.FromString,
+                    response_serializer=chat__message__pb2.Metrics.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -294,5 +326,39 @@ class ChatMessages(object):
         return grpc.experimental.unary_unary(request, target, '/grpc.ChatMessages/DeleteProfile',
             chat__message__pb2.UserLogin.SerializeToString,
             chat__message__pb2.RequestSuccess.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def GetSystemInformation(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/grpc.ChatMessages/GetSystemInformation',
+            chat__message__pb2.Empty.SerializeToString,
+            chat__message__pb2.SystemInformation.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def GetSystemMetrics(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_stream(request, target, '/grpc.ChatMessages/GetSystemMetrics',
+            chat__message__pb2.Interval.SerializeToString,
+            chat__message__pb2.Metrics.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

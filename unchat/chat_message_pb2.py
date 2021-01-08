@@ -20,7 +20,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\x12\x63hat_message.proto\x12\x04grpc\x1a\x1fgoogle/protobuf/timestamp.proto\"\xac\x01\n\x04User\x12\x0e\n\x06userID\x18\x01 \x01(\t\x12\x10\n\x08userName\x18\x02 \x01(\t\x12.\n\nsignUpDate\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x0e\n\x06status\x18\x04 \x01(\t\x12\x11\n\tbiography\x18\x05 \x01(\t\x12\x19\n\x11profilePictureDir\x18\x06 \x01(\t\x12\x14\n\x0cisUserUpdate\x18\x07 \x01(\x08\"%\n\tUserArray\x12\x18\n\x04user\x18\x01 \x03(\x0b\x32\n.grpc.User\"\x87\x01\n\x0b\x43hatMessage\x12\x10\n\x08senderID\x18\x01 \x01(\t\x12\x13\n\x0brecipientID\x18\x02 \x01(\t\x12\x13\n\x0bmessageText\x18\x03 \x01(\t\x12\x10\n\x08userName\x18\x04 \x01(\t\x12*\n\x06sentAt\x18\x05 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\")\n\x0eRequestSuccess\x12\x17\n\x0freceivedRequest\x18\x01 \x01(\x08\"/\n\tUserLogin\x12\x10\n\x08userName\x18\x01 \x01(\t\x12\x10\n\x08password\x18\x02 \x01(\t\"-\n\x04\x43hat\x12\x10\n\x08senderID\x18\x01 \x01(\t\x12\x13\n\x0brecipientID\x18\x02 \x01(\t\"\x07\n\x05\x45mpty2\xb6\x03\n\x0c\x43hatMessages\x12-\n\nChatStream\x12\n.grpc.User\x1a\x11.grpc.ChatMessage0\x01\x12\x36\n\x0bSendMessage\x12\x11.grpc.ChatMessage\x1a\x14.grpc.RequestSuccess\x12-\n\x13SendUserInformation\x12\n.grpc.User\x1a\n.grpc.User\x12=\n\x14SendUserRegistration\x12\x0f.grpc.UserLogin\x1a\x14.grpc.RequestSuccess\x12\x37\n\x0e\x43heckUserLogin\x12\x0f.grpc.UserLogin\x1a\x14.grpc.RequestSuccess\x12,\n\rGetKnownUsers\x12\n.grpc.User\x1a\x0f.grpc.UserArray\x12\x32\n\x0fLoadOldMessages\x12\n.grpc.Chat\x1a\x11.grpc.ChatMessage0\x01\x12\x36\n\rDeleteProfile\x12\x0f.grpc.UserLogin\x1a\x14.grpc.RequestSuccessb\x06proto3'
+  serialized_pb=b'\n\x12\x63hat_message.proto\x12\x04grpc\x1a\x1fgoogle/protobuf/timestamp.proto\"\xac\x01\n\x04User\x12\x0e\n\x06userID\x18\x01 \x01(\t\x12\x10\n\x08userName\x18\x02 \x01(\t\x12.\n\nsignUpDate\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x0e\n\x06status\x18\x04 \x01(\t\x12\x11\n\tbiography\x18\x05 \x01(\t\x12\x19\n\x11profilePictureDir\x18\x06 \x01(\t\x12\x14\n\x0cisUserUpdate\x18\x07 \x01(\x08\"%\n\tUserArray\x12\x18\n\x04user\x18\x01 \x03(\x0b\x32\n.grpc.User\"\x87\x01\n\x0b\x43hatMessage\x12\x10\n\x08senderID\x18\x01 \x01(\t\x12\x13\n\x0brecipientID\x18\x02 \x01(\t\x12\x13\n\x0bmessageText\x18\x03 \x01(\t\x12\x10\n\x08userName\x18\x04 \x01(\t\x12*\n\x06sentAt\x18\x05 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\")\n\x0eRequestSuccess\x12\x17\n\x0freceivedRequest\x18\x01 \x01(\x08\"/\n\tUserLogin\x12\x10\n\x08userName\x18\x01 \x01(\t\x12\x10\n\x08password\x18\x02 \x01(\t\"-\n\x04\x43hat\x12\x10\n\x08senderID\x18\x01 \x01(\t\x12\x13\n\x0brecipientID\x18\x02 \x01(\t\"\x90\x01\n\x07Metrics\x12\x11\n\tcpuUsageP\x18\x01 \x01(\x02\x12\x11\n\tramUsageP\x18\x02 \x01(\x02\x12\x11\n\tramUsageV\x18\x03 \x01(\x02\x12\x0e\n\x06upload\x18\x04 \x01(\x02\x12\x10\n\x08\x64ownload\x18\x05 \x01(\x02\x12\x14\n\x0c\x61vDiskSpaceP\x18\x06 \x01(\x02\x12\x14\n\x0c\x61vDiskSpaceV\x18\x07 \x01(\x02\"\xa4\x01\n\x11SystemInformation\x12\n\n\x02os\x18\x01 \x01(\t\x12\x0f\n\x07version\x18\x02 \x01(\t\x12\x0f\n\x07\x63puName\x18\x03 \x01(\t\x12\x10\n\x08\x63puCores\x18\x04 \x01(\r\x12\x12\n\ncpuThreads\x18\x05 \x01(\r\x12\x14\n\x0cinstalledRam\x18\x06 \x01(\x02\x12\x11\n\tipAddress\x18\x07 \x01(\t\x12\x12\n\nmacAddress\x18\x08 \x01(\t\"\x1b\n\x08Interval\x12\x0f\n\x07seconds\x18\x01 \x01(\r\"\x07\n\x05\x45mpty2\xa9\x04\n\x0c\x43hatMessages\x12-\n\nChatStream\x12\n.grpc.User\x1a\x11.grpc.ChatMessage0\x01\x12\x36\n\x0bSendMessage\x12\x11.grpc.ChatMessage\x1a\x14.grpc.RequestSuccess\x12-\n\x13SendUserInformation\x12\n.grpc.User\x1a\n.grpc.User\x12=\n\x14SendUserRegistration\x12\x0f.grpc.UserLogin\x1a\x14.grpc.RequestSuccess\x12\x37\n\x0e\x43heckUserLogin\x12\x0f.grpc.UserLogin\x1a\x14.grpc.RequestSuccess\x12,\n\rGetKnownUsers\x12\n.grpc.User\x1a\x0f.grpc.UserArray\x12\x32\n\x0fLoadOldMessages\x12\n.grpc.Chat\x1a\x11.grpc.ChatMessage0\x01\x12\x36\n\rDeleteProfile\x12\x0f.grpc.UserLogin\x1a\x14.grpc.RequestSuccess\x12<\n\x14GetSystemInformation\x12\x0b.grpc.Empty\x1a\x17.grpc.SystemInformation\x12\x33\n\x10GetSystemMetrics\x12\x0e.grpc.Interval\x1a\r.grpc.Metrics0\x01\x62\x06proto3'
   ,
   dependencies=[google_dot_protobuf_dot_timestamp__pb2.DESCRIPTOR,])
 
@@ -303,6 +303,193 @@ _CHAT = _descriptor.Descriptor(
 )
 
 
+_METRICS = _descriptor.Descriptor(
+  name='Metrics',
+  full_name='grpc.Metrics',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='cpuUsageP', full_name='grpc.Metrics.cpuUsageP', index=0,
+      number=1, type=2, cpp_type=6, label=1,
+      has_default_value=False, default_value=float(0),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='ramUsageP', full_name='grpc.Metrics.ramUsageP', index=1,
+      number=2, type=2, cpp_type=6, label=1,
+      has_default_value=False, default_value=float(0),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='ramUsageV', full_name='grpc.Metrics.ramUsageV', index=2,
+      number=3, type=2, cpp_type=6, label=1,
+      has_default_value=False, default_value=float(0),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='upload', full_name='grpc.Metrics.upload', index=3,
+      number=4, type=2, cpp_type=6, label=1,
+      has_default_value=False, default_value=float(0),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='download', full_name='grpc.Metrics.download', index=4,
+      number=5, type=2, cpp_type=6, label=1,
+      has_default_value=False, default_value=float(0),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='avDiskSpaceP', full_name='grpc.Metrics.avDiskSpaceP', index=5,
+      number=6, type=2, cpp_type=6, label=1,
+      has_default_value=False, default_value=float(0),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='avDiskSpaceV', full_name='grpc.Metrics.avDiskSpaceV', index=6,
+      number=7, type=2, cpp_type=6, label=1,
+      has_default_value=False, default_value=float(0),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=553,
+  serialized_end=697,
+)
+
+
+_SYSTEMINFORMATION = _descriptor.Descriptor(
+  name='SystemInformation',
+  full_name='grpc.SystemInformation',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='os', full_name='grpc.SystemInformation.os', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='version', full_name='grpc.SystemInformation.version', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='cpuName', full_name='grpc.SystemInformation.cpuName', index=2,
+      number=3, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='cpuCores', full_name='grpc.SystemInformation.cpuCores', index=3,
+      number=4, type=13, cpp_type=3, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='cpuThreads', full_name='grpc.SystemInformation.cpuThreads', index=4,
+      number=5, type=13, cpp_type=3, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='installedRam', full_name='grpc.SystemInformation.installedRam', index=5,
+      number=6, type=2, cpp_type=6, label=1,
+      has_default_value=False, default_value=float(0),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='ipAddress', full_name='grpc.SystemInformation.ipAddress', index=6,
+      number=7, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='macAddress', full_name='grpc.SystemInformation.macAddress', index=7,
+      number=8, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=700,
+  serialized_end=864,
+)
+
+
+_INTERVAL = _descriptor.Descriptor(
+  name='Interval',
+  full_name='grpc.Interval',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='seconds', full_name='grpc.Interval.seconds', index=0,
+      number=1, type=13, cpp_type=3, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=866,
+  serialized_end=893,
+)
+
+
 _EMPTY = _descriptor.Descriptor(
   name='Empty',
   full_name='grpc.Empty',
@@ -323,8 +510,8 @@ _EMPTY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=552,
-  serialized_end=559,
+  serialized_start=895,
+  serialized_end=902,
 )
 
 _USER.fields_by_name['signUpDate'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
@@ -336,6 +523,9 @@ DESCRIPTOR.message_types_by_name['ChatMessage'] = _CHATMESSAGE
 DESCRIPTOR.message_types_by_name['RequestSuccess'] = _REQUESTSUCCESS
 DESCRIPTOR.message_types_by_name['UserLogin'] = _USERLOGIN
 DESCRIPTOR.message_types_by_name['Chat'] = _CHAT
+DESCRIPTOR.message_types_by_name['Metrics'] = _METRICS
+DESCRIPTOR.message_types_by_name['SystemInformation'] = _SYSTEMINFORMATION
+DESCRIPTOR.message_types_by_name['Interval'] = _INTERVAL
 DESCRIPTOR.message_types_by_name['Empty'] = _EMPTY
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
@@ -381,6 +571,27 @@ Chat = _reflection.GeneratedProtocolMessageType('Chat', (_message.Message,), {
   })
 _sym_db.RegisterMessage(Chat)
 
+Metrics = _reflection.GeneratedProtocolMessageType('Metrics', (_message.Message,), {
+  'DESCRIPTOR' : _METRICS,
+  '__module__' : 'chat_message_pb2'
+  # @@protoc_insertion_point(class_scope:grpc.Metrics)
+  })
+_sym_db.RegisterMessage(Metrics)
+
+SystemInformation = _reflection.GeneratedProtocolMessageType('SystemInformation', (_message.Message,), {
+  'DESCRIPTOR' : _SYSTEMINFORMATION,
+  '__module__' : 'chat_message_pb2'
+  # @@protoc_insertion_point(class_scope:grpc.SystemInformation)
+  })
+_sym_db.RegisterMessage(SystemInformation)
+
+Interval = _reflection.GeneratedProtocolMessageType('Interval', (_message.Message,), {
+  'DESCRIPTOR' : _INTERVAL,
+  '__module__' : 'chat_message_pb2'
+  # @@protoc_insertion_point(class_scope:grpc.Interval)
+  })
+_sym_db.RegisterMessage(Interval)
+
 Empty = _reflection.GeneratedProtocolMessageType('Empty', (_message.Message,), {
   'DESCRIPTOR' : _EMPTY,
   '__module__' : 'chat_message_pb2'
@@ -397,8 +608,8 @@ _CHATMESSAGES = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=562,
-  serialized_end=1000,
+  serialized_start=905,
+  serialized_end=1458,
   methods=[
   _descriptor.MethodDescriptor(
     name='ChatStream',
@@ -477,6 +688,26 @@ _CHATMESSAGES = _descriptor.ServiceDescriptor(
     containing_service=None,
     input_type=_USERLOGIN,
     output_type=_REQUESTSUCCESS,
+    serialized_options=None,
+    create_key=_descriptor._internal_create_key,
+  ),
+  _descriptor.MethodDescriptor(
+    name='GetSystemInformation',
+    full_name='grpc.ChatMessages.GetSystemInformation',
+    index=8,
+    containing_service=None,
+    input_type=_EMPTY,
+    output_type=_SYSTEMINFORMATION,
+    serialized_options=None,
+    create_key=_descriptor._internal_create_key,
+  ),
+  _descriptor.MethodDescriptor(
+    name='GetSystemMetrics',
+    full_name='grpc.ChatMessages.GetSystemMetrics',
+    index=9,
+    containing_service=None,
+    input_type=_INTERVAL,
+    output_type=_METRICS,
     serialized_options=None,
     create_key=_descriptor._internal_create_key,
   ),
