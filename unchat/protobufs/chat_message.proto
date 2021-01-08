@@ -14,6 +14,9 @@ service ChatMessages {
     rpc GetKnownUsers(User) returns (UserArray);
     rpc LoadOldMessages(Chat) returns(stream ChatMessage);
     rpc DeleteProfile(UserLogin) returns (RequestSuccess);
+
+    rpc GetSystemInformation(Empty) returns (SystemInformation);
+    rpc GetSystemMetrics(Interval) returns (stream Metrics);
 }
 
 message User {
@@ -50,6 +53,32 @@ message UserLogin {
 message Chat {
     string senderID = 1;
     string recipientID = 2;
+}
+
+// only for admin tool
+message Metrics {
+    float cpuUsageP = 1;
+    float ramUsageP = 2;
+    float ramUsageV = 3;
+    float upload = 4;
+    float download = 5;
+    float avDiskSpaceP = 6;
+    float avDiskSpaceV = 7;
+}
+
+message SystemInformation {
+    string os = 1;
+    string version = 2;
+    string cpuName = 3;
+    uint32 cpuCores = 4;
+    uint32 cpuThreads = 5;
+    float installedRam = 6;
+    string ipAddress = 7;
+    string macAddress = 8;
+}
+
+message Interval {
+    uint32 seconds = 1;
 }
 
 message Empty { }
