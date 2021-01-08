@@ -3,7 +3,8 @@ from unchat import database
 from google.protobuf.timestamp_pb2 import Timestamp
 
 import grpc
-import datetime
+import psutil
+import platform
 import time
 
 import unchat.chat_message_pb2_grpc as rpc
@@ -112,6 +113,32 @@ class ChatServer(rpc.ChatMessagesServicer):
         if passwords_equal:
             self.db_connection.delete_user(request)
         return chat.RequestSuccess(receivedRequest=passwords_equal)
+
+    def GetSystemInformation(self, request, context):
+        uname = platform.uname()
+        ip_address = ""
+        mac_address = ""
+        for i_name, i_addresses in psutil.net_if_addrs().items():
+            for address in i_addresses:
+                if str(address.family) == "AddressFamily.AF_INET":
+                    ip_address = address.address
+                elif str(address.family) == "AddressFamily.AF_PACKET":
+                    mac_address = address.address
+
+        system_information = chat.SystemInformation(
+            os=uname.system,
+            version=uname.version,
+            cpu=uname.processor,
+            cores=int(psutil.cpu_count(False)),
+            threads=int(psutil.cpu_count(True)),
+            installed_ram=psutil.virtual_memory().total,
+            ip_address=ip_address,
+            mac_address=mac_address
+        )
+        return system_information
+
+    def GetSystemMetrics(self, request, context):
+        interval = request.seconds
 
 
 def get_server_credentials():
