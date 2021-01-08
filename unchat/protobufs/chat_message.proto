@@ -17,6 +17,7 @@ service ChatMessages {
 
     rpc GetSystemInformation(Empty) returns (SystemInformation);
     rpc GetSystemMetrics(Interval) returns (stream Metrics);
+    rpc GetAllUsers(Empty) returns (stream User);
 }
 
 message User {
