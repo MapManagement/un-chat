@@ -25,6 +25,12 @@ class DBConnector:
         user = db_query.fetchone()
         return user
 
+    def get_all_users(self):
+        sql_statement = "SELECT user_id, user_name, created_at, status, biography FROM Users"
+        db_query = self.cursor.execute(sql_statement)
+        users = db_query.fetchall()
+        return users
+
     def insert_user(self, user: chat.UserLogin) -> bool:
         sql_statement = "INSERT INTO Users (user_name, password, created_at) VALUES (%s, %s, %s)"
         user_name = user.userName

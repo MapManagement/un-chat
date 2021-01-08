@@ -4,6 +4,7 @@ from google.protobuf.timestamp_pb2 import Timestamp
 
 import grpc
 import psutil
+import shutil
 import platform
 import time
 
@@ -128,17 +129,42 @@ class ChatServer(rpc.ChatMessagesServicer):
         system_information = chat.SystemInformation(
             os=uname.system,
             version=uname.version,
-            cpu=uname.processor,
-            cores=int(psutil.cpu_count(False)),
-            threads=int(psutil.cpu_count(True)),
-            installed_ram=psutil.virtual_memory().total,
-            ip_address=ip_address,
-            mac_address=mac_address
+            cpuName=uname.processor,
+            cpuCores=int(psutil.cpu_count(False)),
+            cpuThreads=int(psutil.cpu_count(True)),
+            installedRam=psutil.virtual_memory().total,
+            ipAddress=ip_address,
+            macAddress=mac_address
         )
         return system_information
 
     def GetSystemMetrics(self, request, context):
         interval = request.seconds
+        while context.is_active():
+            metrics = chat.Metrics(
+                cpuUsageP=round(psutil.cpu_percent(1), 1),
+                ramUsageP=round(psutil.virtual_memory().used / psutil.virtual_memory().total * 100, 1),
+                ramUsageV=round(psutil.virtual_memory().used / (1024**3), 2),  # in gigabytes
+                upload=round(psutil.net_io_counters().bytes_sent / (1024**2), 2),  # in megabytes
+                download=round(psutil.net_io_counters().bytes_recv (2014**2), 2),  # in megabytes
+                avDiskSpaceP=round((shutil.disk_usage("/").free / shutil.disk_usage("/").total), 1),
+                avDiskSpaceV=round(shutil.disk_usage("/").free / (1024**3), 2)  # in gigabytes
+            )
+            time.sleep(interval)
+            yield metrics
+
+    def GetAllUsers(self, request, context):
+        users = self.db_connection.get_all_users()
+        for user in users:
+            timestamp_object = Timestamp(seconds=int(user[2].timestamp()))
+            proto_user = chat.User(
+                userID=str(user[0]),
+                userName=user[1],
+                signUpDate=timestamp_object,
+                status=user[3],
+                biography=user[4]
+            )
+            yield proto_user
 
 
 def get_server_credentials():
