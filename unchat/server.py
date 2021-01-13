@@ -23,6 +23,8 @@ class ChatServer(rpc.ChatMessagesServicer):
         self.chats.append(request)
         if request.recipientID != "-3":
             self.db_connection.insert_new_message(request)
+        else:
+            self.db_connection.set_user_online_status(request.userName, 0)
         return chat.RequestSuccess(receivedRequest=True)
 
     def ChatStream(self, request, context):
@@ -43,17 +45,21 @@ class ChatServer(rpc.ChatMessagesServicer):
     def SendUserInformation(self, request, context):
         print(f"New Login: {request}\n")
         try:
+            if not request.isUserUpdate:
+                self.db_connection.set_user_online_status(request.userName, 1)
             database_user = self.db_connection.get_user_by_name(request.userName)
             if request.isUserUpdate:
                 database_user = self.db_connection.update_user(request)
             timestamp_object = Timestamp(seconds=int(database_user[3].timestamp()))
+            is_online = True if database_user[7] == 1 else False
             proto_user_information = chat.User(
                 userID=str(database_user[0]),
                 userName=database_user[1],
                 signUpDate=timestamp_object,
                 status=database_user[4],
                 biography=database_user[5],
-                profilePictureDir=database_user[6]
+                profilePictureDir=database_user[6],
+                is_online=is_online
             )
             return proto_user_information
         except Exception as ex:
@@ -80,13 +86,15 @@ class ChatServer(rpc.ChatMessagesServicer):
         tuple_users = self.db_connection.get_known_users(request)
         for user in tuple_users:
             timestamp_object = Timestamp(seconds=int(user[3].timestamp()))
+            is_online = True if user[7] == 1 False
             new_user = chat.User(
                 userID=str(user[0]),
                 userName=user[1],
                 signUpDate=timestamp_object,
                 status=user[4],
                 biography=user[5],
-                profilePictureDir=user[6]
+                profilePictureDir=user[6],
+                is_online=is_online
             )
             users.user.append(new_user)
         return users
@@ -147,8 +155,8 @@ class ChatServer(rpc.ChatMessagesServicer):
                 ramUsageV=round(psutil.virtual_memory().used / (1024**3), 2),  # in gigabytes
                 upload=round(psutil.net_io_counters().bytes_sent / (1024**2), 2),  # in megabytes
                 download=round(psutil.net_io_counters().bytes_recv (2014**2), 2),  # in megabytes
-                avDiskSpaceP=round((shutil.disk_usage("/").free / shutil.disk_usage("/").total), 1),
-                avDiskSpaceV=round(shutil.disk_usage("/").free / (1024**3), 2)  # in gigabytes
+                avDiskSpaceP=round((shutil.disk_usage("/").used / shutil.disk_usage("/").total), 1),
+                avDiskSpaceV=round(shutil.disk_usage("/").used / (1024**3), 2)  # in gigabytes
             )
             time.sleep(interval)
             yield metrics
