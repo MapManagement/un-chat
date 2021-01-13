@@ -24,6 +24,7 @@ def create_users_table():
                     "status VARCHAR(32) DEFAULT 'Using UnChat'," \
                     "biography VARCHAR(128)," \
                     "path_profile_picture VARCHAR(256) NOT NULL DEFAULT 'UnChat.png'," \
+                    "is_online TINYINT(1) NOT NULL," \
                     "PRIMARY KEY (user_id)," \
                     "UNIQUE (user_name)" \
                     ")"

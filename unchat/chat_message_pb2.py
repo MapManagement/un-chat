@@ -20,7 +20,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\x12\x63hat_message.proto\x12\x04grpc\x1a\x1fgoogle/protobuf/timestamp.proto\"\xac\x01\n\x04User\x12\x0e\n\x06userID\x18\x01 \x01(\t\x12\x10\n\x08userName\x18\x02 \x01(\t\x12.\n\nsignUpDate\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x0e\n\x06status\x18\x04 \x01(\t\x12\x11\n\tbiography\x18\x05 \x01(\t\x12\x19\n\x11profilePictureDir\x18\x06 \x01(\t\x12\x14\n\x0cisUserUpdate\x18\x07 \x01(\x08\"%\n\tUserArray\x12\x18\n\x04user\x18\x01 \x03(\x0b\x32\n.grpc.User\"\x87\x01\n\x0b\x43hatMessage\x12\x10\n\x08senderID\x18\x01 \x01(\t\x12\x13\n\x0brecipientID\x18\x02 \x01(\t\x12\x13\n\x0bmessageText\x18\x03 \x01(\t\x12\x10\n\x08userName\x18\x04 \x01(\t\x12*\n\x06sentAt\x18\x05 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\")\n\x0eRequestSuccess\x12\x17\n\x0freceivedRequest\x18\x01 \x01(\x08\"/\n\tUserLogin\x12\x10\n\x08userName\x18\x01 \x01(\t\x12\x10\n\x08password\x18\x02 \x01(\t\"-\n\x04\x43hat\x12\x10\n\x08senderID\x18\x01 \x01(\t\x12\x13\n\x0brecipientID\x18\x02 \x01(\t\"\x90\x01\n\x07Metrics\x12\x11\n\tcpuUsageP\x18\x01 \x01(\x02\x12\x11\n\tramUsageP\x18\x02 \x01(\x02\x12\x11\n\tramUsageV\x18\x03 \x01(\x02\x12\x0e\n\x06upload\x18\x04 \x01(\x02\x12\x10\n\x08\x64ownload\x18\x05 \x01(\x02\x12\x14\n\x0c\x61vDiskSpaceP\x18\x06 \x01(\x02\x12\x14\n\x0c\x61vDiskSpaceV\x18\x07 \x01(\x02\"\xa4\x01\n\x11SystemInformation\x12\n\n\x02os\x18\x01 \x01(\t\x12\x0f\n\x07version\x18\x02 \x01(\t\x12\x0f\n\x07\x63puName\x18\x03 \x01(\t\x12\x10\n\x08\x63puCores\x18\x04 \x01(\r\x12\x12\n\ncpuThreads\x18\x05 \x01(\r\x12\x14\n\x0cinstalledRam\x18\x06 \x01(\x02\x12\x11\n\tipAddress\x18\x07 \x01(\t\x12\x12\n\nmacAddress\x18\x08 \x01(\t\"\x1b\n\x08Interval\x12\x0f\n\x07seconds\x18\x01 \x01(\r\"\x07\n\x05\x45mpty2\xd3\x04\n\x0c\x43hatMessages\x12-\n\nChatStream\x12\n.grpc.User\x1a\x11.grpc.ChatMessage0\x01\x12\x36\n\x0bSendMessage\x12\x11.grpc.ChatMessage\x1a\x14.grpc.RequestSuccess\x12-\n\x13SendUserInformation\x12\n.grpc.User\x1a\n.grpc.User\x12=\n\x14SendUserRegistration\x12\x0f.grpc.UserLogin\x1a\x14.grpc.RequestSuccess\x12\x37\n\x0e\x43heckUserLogin\x12\x0f.grpc.UserLogin\x1a\x14.grpc.RequestSuccess\x12,\n\rGetKnownUsers\x12\n.grpc.User\x1a\x0f.grpc.UserArray\x12\x32\n\x0fLoadOldMessages\x12\n.grpc.Chat\x1a\x11.grpc.ChatMessage0\x01\x12\x36\n\rDeleteProfile\x12\x0f.grpc.UserLogin\x1a\x14.grpc.RequestSuccess\x12<\n\x14GetSystemInformation\x12\x0b.grpc.Empty\x1a\x17.grpc.SystemInformation\x12\x33\n\x10GetSystemMetrics\x12\x0e.grpc.Interval\x1a\r.grpc.Metrics0\x01\x12(\n\x0bGetAllUsers\x12\x0b.grpc.Empty\x1a\n.grpc.User0\x01\x62\x06proto3'
+  serialized_pb=b'\n\x12\x63hat_message.proto\x12\x04grpc\x1a\x1fgoogle/protobuf/timestamp.proto\"\xbe\x01\n\x04User\x12\x0e\n\x06userID\x18\x01 \x01(\t\x12\x10\n\x08userName\x18\x02 \x01(\t\x12.\n\nsignUpDate\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x0e\n\x06status\x18\x04 \x01(\t\x12\x11\n\tbiography\x18\x05 \x01(\t\x12\x19\n\x11profilePictureDir\x18\x06 \x01(\t\x12\x14\n\x0cisUserUpdate\x18\x07 \x01(\x08\x12\x10\n\x08isOnline\x18\x08 \x01(\x08\"%\n\tUserArray\x12\x18\n\x04user\x18\x01 \x03(\x0b\x32\n.grpc.User\"\x87\x01\n\x0b\x43hatMessage\x12\x10\n\x08senderID\x18\x01 \x01(\t\x12\x13\n\x0brecipientID\x18\x02 \x01(\t\x12\x13\n\x0bmessageText\x18\x03 \x01(\t\x12\x10\n\x08userName\x18\x04 \x01(\t\x12*\n\x06sentAt\x18\x05 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\")\n\x0eRequestSuccess\x12\x17\n\x0freceivedRequest\x18\x01 \x01(\x08\"/\n\tUserLogin\x12\x10\n\x08userName\x18\x01 \x01(\t\x12\x10\n\x08password\x18\x02 \x01(\t\"-\n\x04\x43hat\x12\x10\n\x08senderID\x18\x01 \x01(\t\x12\x13\n\x0brecipientID\x18\x02 \x01(\t\"\x94\x01\n\x07Metrics\x12\x11\n\tcpuUsageP\x18\x01 \x01(\x02\x12\x11\n\tramUsageP\x18\x02 \x01(\x02\x12\x11\n\tramUsageV\x18\x03 \x01(\x02\x12\x0e\n\x06upload\x18\x04 \x01(\x02\x12\x10\n\x08\x64ownload\x18\x05 \x01(\x02\x12\x16\n\x0eusedDiskSpaceP\x18\x06 \x01(\x02\x12\x16\n\x0eusedDiskSpaceV\x18\x07 \x01(\x02\"\xa4\x01\n\x11SystemInformation\x12\n\n\x02os\x18\x01 \x01(\t\x12\x0f\n\x07version\x18\x02 \x01(\t\x12\x0f\n\x07\x63puName\x18\x03 \x01(\t\x12\x10\n\x08\x63puCores\x18\x04 \x01(\r\x12\x12\n\ncpuThreads\x18\x05 \x01(\r\x12\x14\n\x0cinstalledRam\x18\x06 \x01(\x02\x12\x11\n\tipAddress\x18\x07 \x01(\t\x12\x12\n\nmacAddress\x18\x08 \x01(\t\"\x1b\n\x08Interval\x12\x0f\n\x07seconds\x18\x01 \x01(\r\"\x07\n\x05\x45mpty2\xd3\x04\n\x0c\x43hatMessages\x12-\n\nChatStream\x12\n.grpc.User\x1a\x11.grpc.ChatMessage0\x01\x12\x36\n\x0bSendMessage\x12\x11.grpc.ChatMessage\x1a\x14.grpc.RequestSuccess\x12-\n\x13SendUserInformation\x12\n.grpc.User\x1a\n.grpc.User\x12=\n\x14SendUserRegistration\x12\x0f.grpc.UserLogin\x1a\x14.grpc.RequestSuccess\x12\x37\n\x0e\x43heckUserLogin\x12\x0f.grpc.UserLogin\x1a\x14.grpc.RequestSuccess\x12,\n\rGetKnownUsers\x12\n.grpc.User\x1a\x0f.grpc.UserArray\x12\x32\n\x0fLoadOldMessages\x12\n.grpc.Chat\x1a\x11.grpc.ChatMessage0\x01\x12\x36\n\rDeleteProfile\x12\x0f.grpc.UserLogin\x1a\x14.grpc.RequestSuccess\x12<\n\x14GetSystemInformation\x12\x0b.grpc.Empty\x1a\x17.grpc.SystemInformation\x12\x33\n\x10GetSystemMetrics\x12\x0e.grpc.Interval\x1a\r.grpc.Metrics0\x01\x12(\n\x0bGetAllUsers\x12\x0b.grpc.Empty\x1a\n.grpc.User0\x01\x62\x06proto3'
   ,
   dependencies=[google_dot_protobuf_dot_timestamp__pb2.DESCRIPTOR,])
 
@@ -84,6 +84,13 @@ _USER = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='isOnline', full_name='grpc.User.isOnline', index=7,
+      number=8, type=8, cpp_type=7, label=1,
+      has_default_value=False, default_value=False,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
   ],
   extensions=[
   ],
@@ -97,7 +104,7 @@ _USER = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=62,
-  serialized_end=234,
+  serialized_end=252,
 )
 
 
@@ -128,8 +135,8 @@ _USERARRAY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=236,
-  serialized_end=273,
+  serialized_start=254,
+  serialized_end=291,
 )
 
 
@@ -188,8 +195,8 @@ _CHATMESSAGE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=276,
-  serialized_end=411,
+  serialized_start=294,
+  serialized_end=429,
 )
 
 
@@ -220,8 +227,8 @@ _REQUESTSUCCESS = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=413,
-  serialized_end=454,
+  serialized_start=431,
+  serialized_end=472,
 )
 
 
@@ -259,8 +266,8 @@ _USERLOGIN = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=456,
-  serialized_end=503,
+  serialized_start=474,
+  serialized_end=521,
 )
 
 
@@ -298,8 +305,8 @@ _CHAT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=505,
-  serialized_end=550,
+  serialized_start=523,
+  serialized_end=568,
 )
 
 
@@ -347,14 +354,14 @@ _METRICS = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='avDiskSpaceP', full_name='grpc.Metrics.avDiskSpaceP', index=5,
+      name='usedDiskSpaceP', full_name='grpc.Metrics.usedDiskSpaceP', index=5,
       number=6, type=2, cpp_type=6, label=1,
       has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='avDiskSpaceV', full_name='grpc.Metrics.avDiskSpaceV', index=6,
+      name='usedDiskSpaceV', full_name='grpc.Metrics.usedDiskSpaceV', index=6,
       number=7, type=2, cpp_type=6, label=1,
       has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
@@ -372,8 +379,8 @@ _METRICS = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=553,
-  serialized_end=697,
+  serialized_start=571,
+  serialized_end=719,
 )
 
 
@@ -453,8 +460,8 @@ _SYSTEMINFORMATION = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=700,
-  serialized_end=864,
+  serialized_start=722,
+  serialized_end=886,
 )
 
 
@@ -485,8 +492,8 @@ _INTERVAL = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=866,
-  serialized_end=893,
+  serialized_start=888,
+  serialized_end=915,
 )
 
 
@@ -510,8 +517,8 @@ _EMPTY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=895,
-  serialized_end=902,
+  serialized_start=917,
+  serialized_end=924,
 )
 
 _USER.fields_by_name['signUpDate'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
@@ -608,8 +615,8 @@ _CHATMESSAGES = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=905,
-  serialized_end=1500,
+  serialized_start=927,
+  serialized_end=1522,
   methods=[
   _descriptor.MethodDescriptor(
     name='ChatStream',

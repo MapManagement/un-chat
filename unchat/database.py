@@ -45,6 +45,11 @@ class DBConnector:
         except Exception:
             return False
 
+    def set_user_online_status(self, user_name: str, is_online: int):
+        sql_statement = "UPDATE Users SET is_online = %s WHERE user_name = %s"
+        prepared_statements = (is_online, user_name)
+        self.cursor.execute(sql_statement, prepared_statements)
+
     def update_user(self, new_user: chat.User):
         sql_statement_insert = "UPDATE Users SET user_name = %s, status = %s, biography = %s, " \
                                "path_profile_picture = %s WHERE user_id = %s"

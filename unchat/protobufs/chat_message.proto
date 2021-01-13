@@ -28,6 +28,7 @@ message User {
     string biography = 5;
     string profilePictureDir = 6;
     bool isUserUpdate = 7;
+    bool isOnline = 8;
 }
 
 message UserArray {
@@ -63,8 +64,8 @@ message Metrics {
     float ramUsageV = 3;
     float upload = 4;
     float download = 5;
-    float avDiskSpaceP = 6;
-    float avDiskSpaceV = 7;
+    float usedDiskSpaceP = 6;
+    float usedDiskSpaceV = 7;
 }
 
 message SystemInformation {
