@@ -54,6 +54,16 @@ class ChatMessagesStub(object):
                 request_serializer=chat__message__pb2.UserLogin.SerializeToString,
                 response_deserializer=chat__message__pb2.RequestSuccess.FromString,
                 )
+        self.UploadImage = channel.stream_unary(
+                '/grpc.ChatMessages/UploadImage',
+                request_serializer=chat__message__pb2.UploadImageRequest.SerializeToString,
+                response_deserializer=chat__message__pb2.UploadImageResponse.FromString,
+                )
+        self.DownloadImage = channel.unary_stream(
+                '/grpc.ChatMessages/DownloadImage',
+                request_serializer=chat__message__pb2.UploadImageResponse.SerializeToString,
+                response_deserializer=chat__message__pb2.UploadImageRequest.FromString,
+                )
         self.GetSystemInformation = channel.unary_unary(
                 '/grpc.ChatMessages/GetSystemInformation',
                 request_serializer=chat__message__pb2.Empty.SerializeToString,
@@ -123,6 +133,18 @@ class ChatMessagesServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def UploadImage(self, request_iterator, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def DownloadImage(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
     def GetSystemInformation(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
@@ -183,6 +205,16 @@ def add_ChatMessagesServicer_to_server(servicer, server):
                     servicer.DeleteProfile,
                     request_deserializer=chat__message__pb2.UserLogin.FromString,
                     response_serializer=chat__message__pb2.RequestSuccess.SerializeToString,
+            ),
+            'UploadImage': grpc.stream_unary_rpc_method_handler(
+                    servicer.UploadImage,
+                    request_deserializer=chat__message__pb2.UploadImageRequest.FromString,
+                    response_serializer=chat__message__pb2.UploadImageResponse.SerializeToString,
+            ),
+            'DownloadImage': grpc.unary_stream_rpc_method_handler(
+                    servicer.DownloadImage,
+                    request_deserializer=chat__message__pb2.UploadImageResponse.FromString,
+                    response_serializer=chat__message__pb2.UploadImageRequest.SerializeToString,
             ),
             'GetSystemInformation': grpc.unary_unary_rpc_method_handler(
                     servicer.GetSystemInformation,
@@ -342,6 +374,40 @@ class ChatMessages(object):
         return grpc.experimental.unary_unary(request, target, '/grpc.ChatMessages/DeleteProfile',
             chat__message__pb2.UserLogin.SerializeToString,
             chat__message__pb2.RequestSuccess.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def UploadImage(request_iterator,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.stream_unary(request_iterator, target, '/grpc.ChatMessages/UploadImage',
+            chat__message__pb2.UploadImageRequest.SerializeToString,
+            chat__message__pb2.UploadImageResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def DownloadImage(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_stream(request, target, '/grpc.ChatMessages/DownloadImage',
+            chat__message__pb2.UploadImageResponse.SerializeToString,
+            chat__message__pb2.UploadImageRequest.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
