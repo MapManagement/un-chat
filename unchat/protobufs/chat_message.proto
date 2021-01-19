@@ -4,6 +4,14 @@ import "google/protobuf/timestamp.proto";
 
 package grpc;
 
+enum FileStatusCode {
+    Ok = 0;
+    Failed = 1;
+    InProgress = 2;
+    Finished = 3;
+    Unknown = 4;
+}
+
 service ChatMessages {
     rpc ChatStream(User) returns (stream ChatMessage);
     rpc SendMessage(ChatMessage) returns (RequestSuccess);
@@ -14,6 +22,8 @@ service ChatMessages {
     rpc GetKnownUsers(User) returns (UserArray);
     rpc LoadOldMessages(Chat) returns(stream ChatMessage);
     rpc DeleteProfile(UserLogin) returns (RequestSuccess);
+    rpc UploadImage(stream UploadImageRequest) returns (UploadImageResponse);
+    rpc DownloadImage(UploadImageResponse) returns (stream UploadImageRequest);
 
     rpc GetSystemInformation(Empty) returns (SystemInformation);
     rpc GetSystemMetrics(Interval) returns (stream Metrics);
@@ -55,6 +65,18 @@ message UserLogin {
 message Chat {
     string senderID = 1;
     string recipientID = 2;
+}
+
+message UploadImageRequest {
+    bytes image = 1;
+    string fileName = 2;
+    FileStatusCode statusCode = 3;
+}
+
+message UploadImageResponse {
+    User enquiringUser = 1;
+    string fileName = 2;
+    FileStatusCode statusCode = 3;
 }
 
 // only for admin tool
