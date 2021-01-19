@@ -188,15 +188,15 @@ class DBConnector:
             self.insert_chat(message)
 
         sql_statement_insert_message = f"INSERT INTO {chat_history_table_name} (sender_id, message_text, sent_datetime)" \
-                                       f"VALUES (%s, %s, %s)"
-        prepared_statements_insert_message = (int(sender_id), message_text, created_at)
+                                       f"VALUES (%s, AES_ENCRYPT(%s, %s), %s)"
+        prepared_statements_insert_message = (int(sender_id), message_text, secrets.db_key, created_at)
         self.cursor.execute(sql_statement_insert_message, prepared_statements_insert_message)
 
     def create_new_history_table(self, table_name: str):
         sql_statement_history_table = "CREATE TABLE {} (" \
                                       "message_id MEDIUMINT NOT NULL PRIMARY KEY AUTO_INCREMENT," \
                                       "sender_id MEDIUMINT NOT NULL," \
-                                      "message_text VARCHAR(511) NOT NULL," \
+                                      "message_text BLOB NOT NULL," \
                                       "sent_datetime DATETIME NOT NULL," \
                                       "FOREIGN KEY (sender_id) REFERENCES Users(user_id)" \
                                       ")".format(table_name)
@@ -235,7 +235,9 @@ class DBConnector:
         if chat_name is None:
             return
 
-        sql_statement = f"SELECT * FROM {chat_history_table_name}"
-        db_query = self.cursor.execute(sql_statement)
+        sql_statement = f"SELECT message_id, sender_id, AES_DECRYPT(message_text, %s), sent_datetime " \
+                        f" FROM {chat_history_table_name}"
+        prepared_statements = (secrets.db_key,)
+        db_query = self.cursor.execute(sql_statement, prepared_statements)
         old_messages = db_query.fetchall()
         return old_messages
