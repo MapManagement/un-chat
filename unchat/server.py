@@ -7,6 +7,7 @@ import psutil
 import shutil
 import platform
 import time
+import base64
 
 import unchat.chat_message_pb2_grpc as rpc
 import unchat.chat_message_pb2 as chat
@@ -45,8 +46,6 @@ class ChatServer(rpc.ChatMessagesServicer):
     def SendUserInformation(self, request, context):
         print(f"New Login: {request}\n")
         try:
-            if not request.isUserUpdate:
-                self.db_connection.set_user_online_status(request.userName, 1)
             database_user = self.db_connection.get_user_by_name(request.userName)
             if request.isUserUpdate:
                 database_user = self.db_connection.update_user(request)
@@ -71,6 +70,8 @@ class ChatServer(rpc.ChatMessagesServicer):
         user_password = str(request.password)
 
         passwords_equal = self.db_connection.compare_passwords(user_password, request.userName)
+        if passwords_equal:
+            self.db_connection.set_user_online_status(request.userName, 1)
         return chat.RequestSuccess(receivedRequest=passwords_equal)
 
     def SendUserRegistration(self, request, context):
@@ -86,7 +87,7 @@ class ChatServer(rpc.ChatMessagesServicer):
         tuple_users = self.db_connection.get_known_users(request)
         for user in tuple_users:
             timestamp_object = Timestamp(seconds=int(user[3].timestamp()))
-            is_online = True if user[7] == 1 False
+            is_online = True if user[7] == 1 else False
             new_user = chat.User(
                 userID=str(user[0]),
                 userName=user[1],
@@ -173,6 +174,53 @@ class ChatServer(rpc.ChatMessagesServicer):
                 biography=user[4]
             )
             yield proto_user
+
+    def UploadImage(self, request_iterator, context):
+        metadata_dict = dict(context.invocation_metadata())
+        print(metadata_dict)
+        file_name = metadata_dict["filename"]
+        print(file_name)
+        with open(f"resources/{file_name}", "wb") as file:
+            for request in request_iterator:
+                if request.statusCode == chat.FileStatusCode.InProgress:
+                    file.write(request.image)
+                elif request.statusCode == chat.FileStatusCode.Ok:
+                    response = chat.UploadImageResponse(
+                        statusCode=chat.FileStatusCode.Ok
+                    )
+                    return response
+                else:
+                    response = chat.UploadImageResponse(
+                        statusCode=chat.FileStatusCode.Failed
+                    )
+                    return response
+            file.close()
+
+    def DownloadImage(self, request, context):
+        file_name = request.fileName
+        try:
+            f = open(f"resources/{file_name}", "rb")
+            f.close()
+        except FileNotFoundError:
+            file_name = "default_profile_picture.png"
+
+        with open(f"resources/{file_name}", "rb") as file:
+            while True:
+                file_bytes = file.read(2048)
+                if file_bytes:
+                    byte_response = chat.UploadImageRequest(
+                        image=file_bytes,
+                        fileName=file_name,
+                        statusCode=chat.FileStatusCode.InProgress
+                    )
+                    yield byte_response
+                else:
+                    byte_response = chat.UploadImageRequest(
+                        fileName=file_name,
+                        statusCode=chat.FileStatusCode.Ok
+                    )
+                    yield byte_response
+                    break
 
 
 def get_server_credentials():
