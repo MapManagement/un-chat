@@ -32,18 +32,30 @@ class DBConnector:
         return users
 
     def insert_user(self, user: chat.UserLogin) -> bool:
-        sql_statement = "INSERT INTO Users (user_name, password, created_at) VALUES (%s, %s, %s)"
         user_name = user.userName
-        created_at = datetime.datetime.now() + datetime.timedelta(hours=1)
         password = self.hash_password(user.password)
+        created_at = datetime.datetime.now() + datetime.timedelta(hours=1)
         # rest is default or set later on
 
-        prepared_statements = (user_name, password, created_at)
+        sql_statement = "INSERT INTO Users (user_name, password, created_at, is_online) VALUES (%s, %s, %s, %s)"
+        prepared_statements = (user_name, password, created_at, 0)
         try:
             self.cursor.execute(sql_statement, prepared_statements)
+
             return True
         except Exception:
             return False
+
+    def set_profile_picture_name(self, user_name: str):
+        sql_statement_user_id = "SELECT user_id FROM Users WHERE user_name = %s"
+        prepared_statements_user_id = (user_name,)
+        db_query = self.cursor.execute(sql_statement_user_id, prepared_statements_user_id)
+        user_id_tuple = db_query.fetchone()
+        file_name = f"{user_name}_ID{user_id_tuple[0]}.png"
+
+        sql_statement_file = "UPDATE Users SET path_profile_picture = %s WHERE user_name = %s"
+        prepared_statements_file = (file_name, user_name)
+        self.cursor.execute(sql_statement_file, prepared_statements_file)
 
     def set_user_online_status(self, user_name: str, is_online: int):
         sql_statement = "UPDATE Users SET is_online = %s WHERE user_name = %s"
