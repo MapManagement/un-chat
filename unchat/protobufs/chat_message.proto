@@ -24,10 +24,12 @@ service ChatMessages {
     rpc DeleteProfile(UserLogin) returns (RequestSuccess);
     rpc UploadImage(stream UploadImageRequest) returns (UploadImageResponse);
     rpc DownloadImage(UploadImageResponse) returns (stream UploadImageRequest);
+    rpc CheckConnection(Empty) returns (RequestSuccess);
 
     rpc GetSystemInformation(Empty) returns (SystemInformation);
     rpc GetSystemMetrics(Interval) returns (stream Metrics);
     rpc GetAllUsers(Empty) returns (stream User);
+    rpc CheckAdminLogin(UserLogin) returns (RequestSuccess);
 }
 
 message User {

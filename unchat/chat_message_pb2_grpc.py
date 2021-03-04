@@ -64,6 +64,11 @@ class ChatMessagesStub(object):
                 request_serializer=chat__message__pb2.UploadImageResponse.SerializeToString,
                 response_deserializer=chat__message__pb2.UploadImageRequest.FromString,
                 )
+        self.CheckConnection = channel.unary_unary(
+                '/grpc.ChatMessages/CheckConnection',
+                request_serializer=chat__message__pb2.Empty.SerializeToString,
+                response_deserializer=chat__message__pb2.RequestSuccess.FromString,
+                )
         self.GetSystemInformation = channel.unary_unary(
                 '/grpc.ChatMessages/GetSystemInformation',
                 request_serializer=chat__message__pb2.Empty.SerializeToString,
@@ -78,6 +83,11 @@ class ChatMessagesStub(object):
                 '/grpc.ChatMessages/GetAllUsers',
                 request_serializer=chat__message__pb2.Empty.SerializeToString,
                 response_deserializer=chat__message__pb2.User.FromString,
+                )
+        self.CheckAdminLogin = channel.unary_unary(
+                '/grpc.ChatMessages/CheckAdminLogin',
+                request_serializer=chat__message__pb2.UserLogin.SerializeToString,
+                response_deserializer=chat__message__pb2.RequestSuccess.FromString,
                 )
 
 
@@ -145,6 +155,12 @@ class ChatMessagesServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def CheckConnection(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
     def GetSystemInformation(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
@@ -158,6 +174,12 @@ class ChatMessagesServicer(object):
         raise NotImplementedError('Method not implemented!')
 
     def GetAllUsers(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def CheckAdminLogin(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -216,6 +238,11 @@ def add_ChatMessagesServicer_to_server(servicer, server):
                     request_deserializer=chat__message__pb2.UploadImageResponse.FromString,
                     response_serializer=chat__message__pb2.UploadImageRequest.SerializeToString,
             ),
+            'CheckConnection': grpc.unary_unary_rpc_method_handler(
+                    servicer.CheckConnection,
+                    request_deserializer=chat__message__pb2.Empty.FromString,
+                    response_serializer=chat__message__pb2.RequestSuccess.SerializeToString,
+            ),
             'GetSystemInformation': grpc.unary_unary_rpc_method_handler(
                     servicer.GetSystemInformation,
                     request_deserializer=chat__message__pb2.Empty.FromString,
@@ -230,6 +257,11 @@ def add_ChatMessagesServicer_to_server(servicer, server):
                     servicer.GetAllUsers,
                     request_deserializer=chat__message__pb2.Empty.FromString,
                     response_serializer=chat__message__pb2.User.SerializeToString,
+            ),
+            'CheckAdminLogin': grpc.unary_unary_rpc_method_handler(
+                    servicer.CheckAdminLogin,
+                    request_deserializer=chat__message__pb2.UserLogin.FromString,
+                    response_serializer=chat__message__pb2.RequestSuccess.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -412,6 +444,23 @@ class ChatMessages(object):
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
+    def CheckConnection(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/grpc.ChatMessages/CheckConnection',
+            chat__message__pb2.Empty.SerializeToString,
+            chat__message__pb2.RequestSuccess.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
     def GetSystemInformation(request,
             target,
             options=(),
@@ -459,5 +508,22 @@ class ChatMessages(object):
         return grpc.experimental.unary_stream(request, target, '/grpc.ChatMessages/GetAllUsers',
             chat__message__pb2.Empty.SerializeToString,
             chat__message__pb2.User.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def CheckAdminLogin(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/grpc.ChatMessages/CheckAdminLogin',
+            chat__message__pb2.UserLogin.SerializeToString,
+            chat__message__pb2.RequestSuccess.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
