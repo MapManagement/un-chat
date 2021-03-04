@@ -1,5 +1,6 @@
 from concurrent import futures
 from unchat import database
+from unchat import secrets
 from google.protobuf.timestamp_pb2 import Timestamp
 
 import grpc
@@ -7,7 +8,6 @@ import psutil
 import shutil
 import platform
 import time
-import base64
 
 import unchat.chat_message_pb2_grpc as rpc
 import unchat.chat_message_pb2 as chat
@@ -175,6 +175,11 @@ class ChatServer(rpc.ChatMessagesServicer):
             )
             yield proto_user
 
+    def CheckAdminLogin(self, request, context):
+        sent_admin_password = str(request.password)
+        passwords_equal = sent_admin_password == secrets.admin_password
+        return chat.RequestSuccess(receivedRequest=passwords_equal)
+
     def UploadImage(self, request_iterator, context):
         metadata_dict = dict(context.invocation_metadata())
         print(metadata_dict)
@@ -206,7 +211,7 @@ class ChatServer(rpc.ChatMessagesServicer):
 
         with open(f"resources/{file_name}", "rb") as file:
             while True:
-                file_bytes = file.read(2048)
+                file_bytes = file.read(8192)
                 if file_bytes:
                     byte_response = chat.UploadImageRequest(
                         image=file_bytes,
@@ -221,6 +226,9 @@ class ChatServer(rpc.ChatMessagesServicer):
                     )
                     yield byte_response
                     break
+
+    def CheckConnection(self, request, context):
+        return chat.RequestSuccess(receivedRequest=True)
 
 
 def get_server_credentials():
